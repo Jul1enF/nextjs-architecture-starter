@@ -1,13 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, RefObject } from "react";
 
-export default function useLockTransitions(refs) {
-    const timeout = useRef(null);
+// TYPES
+type AnyHTMLElementRef = RefObject<HTMLElement | null>
+type Refs = AnyHTMLElementRef | AnyHTMLElementRef[] | Record<string, HTMLElement | null>
 
-    const array = Array.isArray(refs) ? refs
+
+export default function useLockTransitions(refs : Refs) {
+    const timeout = useRef<number>(undefined);
+
+    const array : AnyHTMLElementRef[] | HTMLElement[] = Array.isArray(refs) ? refs
         : typeof refs === "object" && refs !== null ? Object.values(refs)
         : [refs];
 
-    const nodesArray = array.map(e => e?.current ?? e)
+    const nodesArray = array.map(e => "current" in e ? e.current : e)
 
     useEffect(() => {
         const freezeTransitions = () => {
@@ -27,5 +32,5 @@ export default function useLockTransitions(refs) {
             window.removeEventListener("resize", freezeTransitions);
             clearTimeout(timeout.current);
         };
-    }, [nodesArray[0]]);
+    }, [refs]);
 }

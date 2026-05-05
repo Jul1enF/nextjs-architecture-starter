@@ -6,7 +6,7 @@ export default function useWindowDimensions() {
     const [mounted, setMounted] = useState(false)
 
     // States to know if the app is displayed in landscape or on a phone
-    const [landscapeDisplay, setLandscapeDisplay] = useState(null)
+    const [landscapeDisplay, setLandscapeDisplay] = useState<null | boolean>(null)
 
     // States to register in real time vw and vh
     const [vw, setVw] = useState(1)

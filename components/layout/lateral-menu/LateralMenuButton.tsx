@@ -4,7 +4,7 @@ import styles from "@/styles/layout/lateral-menu/LateralMenuButton.module.css";
 import { IoMenu } from "react-icons/io5";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 
-export default function LateralMenuButton({ toggleVisibility }) {
+export default function LateralMenuButton({ toggleVisibility } : {toggleVisibility : ()=>void}) {
   const { landscapeDisplay } = useWindowDimensions();
 
     return (

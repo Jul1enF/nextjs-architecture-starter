@@ -6,7 +6,7 @@ import useWindowDimensions from '@/hooks/useWindowDimensions';
 import HorizontalMenu from '@/components/layout/horizontal-menu/HorizontalMenu';
 
 
-export default function AppLayoutWrapper({ children }) {
+export default function AppLayoutWrapper({ children }: { children: React.ReactNode }) {
     const { mounted, landscapeDisplay } = useWindowDimensions()
 
     // Don't render if the dom hasn't been hydrated and landscapeDisplay setted

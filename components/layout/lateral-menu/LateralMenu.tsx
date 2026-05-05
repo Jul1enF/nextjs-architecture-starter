@@ -3,18 +3,23 @@
 
 import styles from "@/styles/layout/lateral-menu/LateralMenu.module.css";
 import { useEffect, useRef } from "react";
-import useLockBodyScroll from "hooks/useLockBodyScroll"
+import useLockBodyScroll from "@/hooks/useLockBodyScroll"
 import useLockTransitions from "@/hooks/useLockTransitions";
 import LateralMenuItem from "@/components/layout/lateral-menu/LateralMenuItem";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 
-export default function LateralMenu({ menuVisible, hide }) {
+type LateralMenuProps = {
+  menuVisible: boolean;
+  hide: () => void;
+}
+
+export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
 
   // Stop the scroll of the body of the page when scrolling in the menu
   useLockBodyScroll(menuVisible);
 
-  const menuRef = useRef(null);
-  
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const { freeHeight, headersHeight } = useWindowDimensions()
 
   // Freeze the menu css transitions when page is resized
@@ -32,13 +37,17 @@ export default function LateralMenu({ menuVisible, hide }) {
 
   // Detect click outside the menu to close it
   useEffect(() => {
-    function handleClick(e) {
+    function handleClick(e : MouseEvent) {
       // Escape click on the toggeling button of the menu
       const menuButton = document.getElementById("lateralMenuButtonId");
 
+      if (!(e.target instanceof Node)) return
+
       if (
         menuRef.current &&
+        e.target &&
         !menuRef.current.contains(e.target) &&
+        menuButton &&
         !menuButton.contains(e.target)
       ) { hide() }
     }
@@ -58,7 +67,7 @@ export default function LateralMenu({ menuVisible, hide }) {
       className={`${styles.mainContainer} ${menuVisible ? styles.visible : styles.hidden
         }`}
       ref={menuRef}
-      style={{ height : freeHeight, top : headersHeight}}
+      style={{ height: freeHeight, top: headersHeight }}
     >
       {sections}
     </div>

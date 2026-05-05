@@ -3,15 +3,10 @@
 import AppLayoutWrapper from "./AppLayoutWrapper"
 
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import user from "@/reducers/user";
+import { store } from "@/store/store";
+import { ReactNode } from "react";
 
-const store = configureStore({
-  reducer: { user },
-});
-
-
-export default function ClientProviderWrapper ({ children }) {
+export default function ClientProviderWrapper ({ children } : {children : ReactNode}) {
 return(
      <Provider store={store}>
         <AppLayoutWrapper>

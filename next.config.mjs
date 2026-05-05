@@ -1,3 +1,6 @@
+// VS CODE TypeScript check : CMD + Shift + P 
+// TypeScript: Restart TS Server
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,

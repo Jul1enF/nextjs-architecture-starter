@@ -3,7 +3,14 @@
 import styles from "@/styles/layout/lateral-menu/LateralMenuItem.module.css";
 import { useRouter } from 'next/navigation'
 
-export default function LateralMenuItem({ sectionName, link, func, hide }) {
+type LateralMenuItemProps = {
+  sectionName : string;
+  link? : string;
+  func? : () => void;
+  hide : () => void;
+}
+
+export default function LateralMenuItem({ sectionName, link, func, hide } : LateralMenuItemProps) {
   const router = useRouter();
 
   const sectionClick = () => {
