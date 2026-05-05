@@ -1,0 +1,100 @@
+  .error {
+      color: var(--strong-red);
+  }
+
+  .success {
+      color: var(--light-green)
+  }
+
+  /* MAIN FONTS SETTING OF THE APP */
+
+  :root {
+      --regular-font-size: 1.125rem;
+  }
+
+  .pageTitle {
+      color: var(--dark-white);
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.066em;
+      font-weight: 500;
+  }
+
+  .pageSubtitle {
+      color: var(--dark-white);
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: 0.07em;
+      font-weight: 400;
+  }
+
+  .labelText {
+      color: var(--dark-white);
+      font-size: 1.22rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      margin: 0;
+  }
+
+  .largeText {
+      color: var(--dark-white);
+      font-size: 1.22rem;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      margin: 0;
+  }
+
+  .regularText {
+      color: var(--dark-white);
+      font-size: var(--regular-font-size);
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 0.055em;
+      line-height: 1.3em;
+  }
+
+  .smallText {
+      color: var(--dark-white);
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0;
+      line-height: 1em;
+  }
+
+  .warning {
+      font-weight: 500;
+      width: 100%;
+      font-size: var(--regular-font-size);
+      margin: var(--regular-margin-top) 0 0 0;
+      line-height: 1.05em;
+  }
+
+
+  /* EXCEPT FOR VERY LARGE SCREENS, FIXED FONT SIZES IN UI UNIT INSTEAD OF REM */
+
+  @media (max-width: 1600px) {
+
+      .pageTitlePx {
+          font-size: calc(30 * var(--ui-unit));
+      }
+
+      .pageSubtitlePx {
+          font-size: calc(22 * var(--ui-unit));
+      }
+
+      .labelTextPx {
+          font-size: calc(19.5 * var(--ui-unit));
+      }
+
+      .largeTextPx {
+          font-size: calc(19 * var(--ui-unit));
+      }
+
+      .regularTextPx {
+          font-size: calc(18 * var(--ui-unit));
+      }
+
+      .smallTextPx {
+          font-size: calc(16 * var(--ui-unit));
+      }
+  }

@@ -1,0 +1,44 @@
+/* Custom input color */
+input::placeholder {
+    color: var(--placeholder-color);
+}
+
+/* Main colors of the app */
+:root {
+    --placeholder-color : rgba(255, 255, 255, 0.31);
+
+    --bright-white: rgba(250, 248, 252, 1);
+
+    --dark-white: rgba(246, 241, 254, 1);
+    --dark-white-2: rgba(238, 231, 232, 1);
+
+    --very-bright-grey : rgba(228, 228, 228, 1);
+
+    --bright-grey: rgb(211, 211, 211);
+
+    --light-grey3: rgba(172, 172, 172, 1);
+    --light-grey2: rgba(149, 149, 149, 1);
+    --light-grey: rgba(129, 129, 129, 1);
+
+    --medium-grey: rgba(113, 113, 113, 1);
+    --medium-grey2: rgb(99, 99, 99);
+    --medium-grey3: rgb(82, 82, 82);
+
+    --overflow-grey: rgb(42, 42, 42);
+
+    --strong-grey: rgb(50, 50, 50);
+    --strong-grey2: rgb(35, 35, 35);
+
+    --dark-grey: rgb(27, 27, 27);
+
+    --strong-black: rgba(6, 0, 15, 1);
+
+
+    --bright-red: rgba(234, 52, 52, 1);
+    --strong-red: rgba(182, 11, 11, 1);
+
+    --light-green: rgba(0, 173, 0, 1);
+    --strong-green : rgba(0, 140, 0, 1);
+
+    --blue-link: rgb(1, 1, 224);
+}

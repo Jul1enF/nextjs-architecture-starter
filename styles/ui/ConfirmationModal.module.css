@@ -1,0 +1,69 @@
+.activeOverlay {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.88);
+    z-index: 11;
+    transition: background-color 0.4s;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.disabledOverlay {
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.6s 0s,
+        width 0s 0.6s,
+        height 0s 0.6s;
+    pointer-events: none;
+    z-index: 11;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.visibleModal {
+        position: absolute;
+        padding-top: calc(35 * var(--ui-unit));
+        padding-bottom: calc(35 * var(--ui-unit));
+        bottom: 20lvh;
+        width: var(--regular-card-width);
+        visibility: visible;
+        transition: bottom 0.35s ease-in-out;
+        z-index: 12;
+    }
+
+
+    .hiddenModal {
+        position: absolute;
+        visibility: hidden;
+        padding-top: calc(35 * var(--ui-unit));
+        padding-bottom: calc(35 * var(--ui-unit));
+        bottom: -50lvh;
+        width: var(--regular-card-width);
+        transition: bottom 0.3s,
+            visibility 0s 0.3s;
+        z-index: 12;
+        overflow: hidden;
+    }
+
+    .confirmationText {
+        font-weight: 500;
+        color: var(--bright-grey);
+        text-align: center;
+        margin: 0;
+        font-size: calc(20 * var(--ui-unit));
+    }
+
+
+    .thisLine {
+        width: calc(var(--regular-item-width) * 0.4);
+        margin: calc(20 * var(--ui-unit)) 0;
+    }

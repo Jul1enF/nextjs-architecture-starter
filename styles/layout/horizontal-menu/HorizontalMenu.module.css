@@ -1,0 +1,25 @@
+.mainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100vw;
+    height: var(--horiz-menu-height);
+    max-height: 20dvh;
+    background-color: var(--dark-grey);
+    position: fixed;
+    top: var(--header-height);
+    overflow-x: scroll;
+    column-gap: calc(15 * var(--ui-unit));
+    padding: 0 calc(10 * var(--ui-unit));
+    scrollbar-width: none;
+    z-index: 8;
+}
+
+.underline {
+    background-color: var(--strong-red);
+    min-height: calc(6 * var(--ui-unit));
+    position: absolute;
+    bottom: 0;
+    transition: left 0.4s,
+        width 0.4s;
+}

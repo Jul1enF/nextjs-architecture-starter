@@ -1,0 +1,44 @@
+.mainContainer {
+    height: var(--header-height);
+    overflow: hidden;
+    background-color: var(--strong-black);
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    z-index: 9;
+}
+
+@media (orientation: landscape) {
+    .headerTitleContainer {
+        max-width: 60%;
+        min-height: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media (orientation: portrait) {
+    .headerTitleContainer {
+        max-width: 70%;
+        min-height: 100%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        padding : 5% 0;
+    }
+}
+
+.headerTitle {
+    color: var(--dark-white);
+    margin: 0;
+    font-size: calc(36 * var(--ui-unit));
+    letter-spacing: calc(2 * var(--ui-unit));
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+}

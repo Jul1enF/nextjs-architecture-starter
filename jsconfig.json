@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "@/styles/*": ["styles/*"],
+      "@/app/*": ["app/*"],
+      "@/components/*": ["components/*"],
+       "@/reducers/*": ["reducers/*"],
+      "@/utils/*": ["utils/*"],
+      "@/hooks/*": ["hooks/*"]
+    }
+  },
+  "exclude": ["./node_modules"]
+}

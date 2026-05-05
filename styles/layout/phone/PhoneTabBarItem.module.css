@@ -1,0 +1,37 @@
+    .mainContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        max-width: 20%;
+        max-height: 100%;
+        overflow: hidden;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .icon {
+        color: var(--light-grey);
+        width: calc(27 * var(--ui-unit));
+        height: calc(27 * var(--ui-unit));
+    }
+
+    .selectedIcon {
+        color: var(--dark-white);
+        width: calc(27 * var(--ui-unit));
+        height: calc(27 * var(--ui-unit));
+    }
+
+    .pageName {
+        color: var(--light-grey);
+        font-size: calc(18 * var(--ui-unit));
+        font-weight: 600;
+        margin: calc(5 * var(--ui-unit)) 0 0 0;
+    }
+
+    .selectedPageName {
+        color: var(--dark-white);
+        font-size: calc(18 * var(--ui-unit));
+        font-weight: 600;
+        margin: calc(5 * var(--ui-unit)) 0 0 0;
+    }

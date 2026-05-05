@@ -1,0 +1,159 @@
+.visibleDropdown {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s,
+        visibility 0s;
+}
+
+.hiddenDropdown {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s,
+        visibility 0s 0.3s;
+}
+
+
+.dropdown {
+    background-color: var(--overflow-grey);
+    position: absolute;
+    width: 100%;
+    top : calc(100% + calc(5 * var(--ui-unit)));
+    left : 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--regular-border-radius);
+    max-height: calc(var(--large-item-height) * 4.8);
+    overflow-y: scroll;
+}
+
+.closeIconContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right : 10%;
+    width : 10%;
+    height : 100%;
+    cursor: pointer;
+    border :none;
+    background-color: transparent;
+    padding: 0;
+}
+
+.closeIcon {
+    color: var(--dark-white);
+    font-size: max(22px, calc(23 * var(--ui-unit)));
+}
+
+.chevronIconContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right : 0;
+    width : 10%;
+    height : 100%;
+    cursor: pointer;
+    border :none;
+    background-color: transparent;
+    padding: 0;
+}
+
+.chevronIcon {
+    color: var(--dark-white);
+    font-size: max(24px, calc(25 * var(--ui-unit)));
+    display: block;
+    transition: transform 0.4s;
+}
+
+.chevronUp {
+    transform: rotate(180deg);
+    transition: transform 0.4s;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    z-index: 1000;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+}
+
+
+
+
+
+
+/* .hiddenInput {
+    opacity: 0;
+    max-height: 0px;
+    min-height: 0px;
+    margin-top: 0px;
+    visibility: hidden;
+    transition: opacity 0.3s,
+        visibility 0s 0.3s,
+        max-height 0.2s 0.1s,
+        height 0.2s 0.1s,
+        min-height 0.2s 0.1s,
+        margin-top 0.2s 0.1s;
+} */
+
+
+/* @media (min-width: 1350px) and (orientation: landscape) {
+    .visibleInput {
+        opacity: 1;
+        max-height: var(--large-item-height);
+        min-height: var(--large-item-height);
+        visibility: visible;
+        transition: opacity 0.5s 0.1s,
+            visibility 0s,
+          max-height 0.5s,
+            height 0.5s,
+            min-height 0.5s,
+            margin-top 0.5s;
+    }
+
+
+    .itemsList {
+        background-color: var(--overflow-grey);
+        position: absolute;
+        top: calc(var(--large-item-height) + 0.5vw);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--regular-border-radius);
+        width: var(--large-item-width);
+        max-height: calc(var(--large-item-height) * 4.8);
+        overflow-y: scroll;
+    }
+
+    .computerFont {
+        font-size: 1.1vw;
+        text-align: start;
+    }
+
+    .closeIcon {
+        color: var(--dark-white);
+        cursor: pointer;
+        position: absolute;
+        right: 10%;
+        height: 1.55vw;
+        width: 1.55vw;
+    }
+
+    .chevronIcon {
+        color: var(--dark-white);
+        cursor: pointer;
+        position: absolute;
+        right: 2%;
+        height: 1.9vw;
+        width: 1.9vw;
+        transition: transform 0.4s;
+    }
+
+} */

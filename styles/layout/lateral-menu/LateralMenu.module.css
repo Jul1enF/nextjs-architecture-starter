@@ -1,0 +1,36 @@
+ .visible {
+     left: 0;
+     transition: left 0.5s;
+ }
+
+ .hidden {
+     left: calc(var(--menu-width) * -1);
+     transition: left 0.5s;
+ }
+
+
+ /* Landscape */
+ @media (orientation: landscape) {
+     .mainContainer {
+         --menu-width: calc(400 * var(--ui-unit));
+         width: var(--menu-width);
+         max-width: 100%;
+         background-color: var(--medium-grey3);
+         position: absolute;
+         overflow-y: scroll;
+         z-index: 1;
+     }
+ }
+
+ /* Portrait */
+ @media (orientation : portrait) {
+     .mainContainer {
+         --menu-width: calc(330 * var(--ui-unit));
+         width: var(--menu-width);
+         max-width: 100%;
+         background-color: var(--medium-grey3);
+         position: absolute;
+         overflow-y: scroll;
+         z-index: 1;
+     }
+ }
