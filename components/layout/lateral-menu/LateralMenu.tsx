@@ -67,7 +67,7 @@ export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
       className={`${styles.mainContainer} ${menuVisible ? styles.visible : styles.hidden
         }`}
       ref={menuRef}
-      style={{ height: freeHeight, top: headersHeight }}
+      style={{ height: freeHeight, top: headersHeight}}
     >
       {sections}
     </div>

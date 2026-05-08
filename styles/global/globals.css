@@ -1,15 +1,18 @@
+html {
+  /* Var for default font and fallbacks fonts if the default one can't load */
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
+    Droid Sans, Helvetica Neue, sans-serif;
+}
+
 body {
   padding: 0;
   margin: 0;
   max-width: 100%;
   text-align: center;
 
-  /* Color of the background to fill empty edges spaces on safari ios. Must use the color of the tabBar and Headeer */
+  /* Color of the background to fill empty edges spaces on safari ios. Must use the color of the tabBar and Header */
   background: var(--strong-black);
-
-  /* Default font family (that are already charged in the app) - Backup if next font with google fails  */
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 * {

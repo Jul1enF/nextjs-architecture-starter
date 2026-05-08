@@ -6,13 +6,13 @@ type Refs = AnyHTMLElementRef | AnyHTMLElementRef[] | Record<string, HTMLElement
 
 
 export default function useLockTransitions(refs : Refs) {
-    const timeout = useRef<number>(undefined);
+    const timeout = useRef<NodeJS.Timeout>(undefined);
 
     const array : AnyHTMLElementRef[] | HTMLElement[] = Array.isArray(refs) ? refs
         : typeof refs === "object" && refs !== null ? Object.values(refs)
         : [refs];
 
-    const nodesArray = array.map(e => "current" in e ? e.current : e)
+    const nodesArray = array.map(e => e && "current" in e ? e.current : e)
 
     useEffect(() => {
         const freezeTransitions = () => {

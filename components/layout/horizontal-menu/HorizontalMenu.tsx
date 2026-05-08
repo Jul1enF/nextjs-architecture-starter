@@ -8,6 +8,11 @@ import useLockTransitions from "@/hooks/useLockTransitions"
 import useScrollToSection from "@/hooks/useScrollToSection"
 import HorizontalMenuItem from "./HorizontalMenuItem"
 
+export type HorizontalMenuItemOptions = {
+    sectionName: string;
+    link: string;
+    func?: () => void;
+}
 
 export default function HorizontalMenu() {
 
@@ -15,7 +20,7 @@ export default function HorizontalMenu() {
 
     const logout = () => console.log("LOG OUT !!")
 
-    const sectionsArray = [
+    const sectionsArray: HorizontalMenuItemOptions[] = [
         { sectionName: "Accueil", link: "/" },
         { sectionName: "Articles", link: "/articles" },
         { sectionName: "Se déconnecter", link: "/login", func: logout },
@@ -23,17 +28,19 @@ export default function HorizontalMenu() {
         { sectionName: "Favoris", link: "/bookmarks" }
     ]
 
-    const sectionsRef = useRef({})
-    const underlineRef = useRef(null)
+    const sectionsRef = useRef<{ [key: string]: HTMLButtonElement }>({})
+    const underlineRef = useRef<HTMLDivElement | null>(null)
 
-    const [selectedSection, setSelectedSection] = useState(null)
+    const [selectedSection, setSelectedSection] = useState<HorizontalMenuItemOptions | null>(null)
 
     // Func to make the underline follow the selected section
     const changeUnderlinePosition = () => {
-        const section = sectionsRef.current[selectedSection?.sectionName]
+        const section = selectedSection?.sectionName && sectionsRef.current[selectedSection?.sectionName]
         if (!section) return
-        underlineRef.current.style.width = section.offsetWidth + "px";
-        underlineRef.current.style.left = section.offsetLeft + "px";
+        if (underlineRef.current) {
+            underlineRef.current.style.width = section.offsetWidth + "px";
+            underlineRef.current.style.left = section.offsetLeft + "px"
+        };
     }
 
     // Block the css transitions when window is resized
@@ -53,7 +60,7 @@ export default function HorizontalMenu() {
     // Check that selected section is accurate with the current location (for underline)
     const pathname = usePathname()
 
-    const urlMatchSection = (section) => {
+    const urlMatchSection = (section : HorizontalMenuItemOptions) => {
         if (pathname === section?.link || section?.link && pathname.startsWith(`${section?.link}/`)) {
             return true
         } else return false
@@ -65,11 +72,11 @@ export default function HorizontalMenu() {
         const sectionFound = sectionsArray.find(e => urlMatchSection(e))
 
         // If a section has been found, setting of selectedSection to it
-        if (!urlMatchSection(selectedSection) && sectionFound) {
+        if (selectedSection && !urlMatchSection(selectedSection) && sectionFound) {
             setSelectedSection(sectionFound)
         }
         // Else setting of selectedSection to null
-        else if (!urlMatchSection(selectedSection)) {
+        else if (selectedSection && !urlMatchSection(selectedSection)) {
             setSelectedSection(null)
         }
     }

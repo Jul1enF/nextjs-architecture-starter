@@ -3,12 +3,10 @@
 import styles from '@/styles/pages/home/Home.module.css';
 import ConfirmationModal from '@/components/ui/ConfirmationModal';
 import { useState } from 'react';
-import useWindowDimensions from '@/hooks/useWindowDimensions';
 import Autocomplete from '@/components/ui/autocomplete/Autocomplete';
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false)
-  const { vw, vh } = useWindowDimensions()
 
   const [selectedItem, setSelectedItem] = useState("Green")
 

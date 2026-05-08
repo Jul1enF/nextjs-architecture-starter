@@ -11,3 +11,8 @@ export const itemHasStringValue = <K extends string>(item: unknown, key: K): ite
 export const hasId = (item: unknown): item is { _id: unknown } => {
   return ( typeof item === "object" && item !== null && "_id" in item )
 }
+
+
+export const isWindow = (element : (Window & typeof globalThis) | HTMLElement): element is (Window & typeof globalThis) => {
+  return element === window
+}

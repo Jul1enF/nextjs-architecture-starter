@@ -1,8 +1,12 @@
 import { useEffect } from "react";
+import { isWindow } from "@/utils/typeGuards";
 
-const getParentsStatus = (element, horizontal) => {
-    let parent = element.parentElement
-    let containerToScroll = null
+type Container = HTMLElement | null
+type ScrollingParent = Container | (Window & typeof globalThis)
+
+const getParentsStatus = (element: HTMLElement, horizontal: boolean) => {
+    let parent: Container = element.parentElement
+    let containerToScroll: ScrollingParent = null
     let fixedElementsHeight = 0
 
     while (parent && !containerToScroll) {
@@ -44,11 +48,10 @@ const getParentsStatus = (element, horizontal) => {
 }
 
 
-
-export default function useScrollToSection(selectedSectionName, horizontal, sectionsRef) {
+export default function useScrollToSection(selectedSectionName: string | undefined, horizontal: boolean, sectionsRef: React.RefObject<{ [key: string]: HTMLElement }>) {
 
     useEffect(() => {
-        if (!sectionsRef.current || !selectedSectionName) return
+        if (!sectionsRef.current || !selectedSectionName || !sectionsRef.current[selectedSectionName]) return
 
         const targetedSection = sectionsRef.current[selectedSectionName]
 
@@ -61,11 +64,11 @@ export default function useScrollToSection(selectedSectionName, horizontal, sect
         const scrollDirection = horizontal ? "left" : "top"
         const scrollOffset = horizontal ? "scrollLeft" : "scrollTop"
 
-        let containerViewportOffset
-        let containerCurrentScroll
+        let containerViewportOffset: number
+        let containerCurrentScroll: number
 
         // Setting vars to scroll directly inside window
-        if (containerToScroll === window) {
+        if (isWindow(containerToScroll)) {
             containerViewportOffset = 0
             containerCurrentScroll = window.scrollY
         }
@@ -80,7 +83,7 @@ export default function useScrollToSection(selectedSectionName, horizontal, sect
         const distanceToScroll = sectionViewportOffset - containerViewportOffset + containerCurrentScroll - padding - fixedElementsHeight;
 
         // Scroll inside window
-        if (containerToScroll === window) {
+        if (isWindow(containerToScroll)) {
             window.scroll({
                 [scrollDirection]: distanceToScroll,
                 behavior: "smooth",

@@ -11,16 +11,16 @@ export default function PhoneTabBar() {
 
     useEffect(() => {
         const handleViewportResize = () => {
-            if (window.visualViewport.height < (window.innerHeight * 0.7)){
+            if (window.visualViewport && window.visualViewport.height < (window.innerHeight * 0.7)){
                 setKeyboardMounted(true)
             }else{
                 setKeyboardMounted(false)
             }
         };
 
-        window.visualViewport.addEventListener("resize", handleViewportResize);
+        window.visualViewport && window.visualViewport.addEventListener("resize", handleViewportResize);
         return () => {
-            window.visualViewport.removeEventListener("resize", handleViewportResize);
+            window.visualViewport && window.visualViewport.removeEventListener("resize", handleViewportResize);
         };
     }, []);
 

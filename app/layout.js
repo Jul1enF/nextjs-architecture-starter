@@ -10,10 +10,14 @@ import ClientProviderWrapper from "@/components/layout-wrapper/ClientProviderWra
 
 const inter = Inter({
   subsets: ["latin"],
+  variable: '--font-inter',
+  display: 'swap',
 })
 
 const roboto = Roboto({
   subsets: ["latin"],
+  variable: '--font-roboto',
+  display: 'swap',
 })
 
 export const metadata = {
@@ -23,8 +27,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
-      <body className={`${inter.variable} ${roboto.className}`}>
+    <html lang="fr" className={`${inter.variable} ${roboto.variable}`}>
+      <body>
         <ClientProviderWrapper >
           {children}
         </ClientProviderWrapper>

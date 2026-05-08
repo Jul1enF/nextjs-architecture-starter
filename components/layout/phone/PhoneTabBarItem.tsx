@@ -10,9 +10,7 @@ import { MdOndemandVideo } from "react-icons/md"
 import { RiStarLine } from "react-icons/ri";
 
 
-export default function PhoneTabBarItem(props) {
-
-    const { targetedPage } = props
+export default function PhoneTabBarItem({ targetedPage } : { targetedPage : string}) {
 
     // Logic to know if the tabbar item page is selected
     const [targetedPageSelected, setTargetedPageSelected] = useState(false)
@@ -34,8 +32,8 @@ export default function PhoneTabBarItem(props) {
 
 
     // Icon of the tab bar
-    let icon
-    let pageName
+    let icon = <></>
+    let pageName = ""
     const iconClassName = targetedPageSelected ? styles.selectedIcon : styles.icon
 
     switch (targetedPage) {
