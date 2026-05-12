@@ -6,8 +6,17 @@ import useLockBodyScroll from "@/hooks/useLockBodyScroll";
 import useLockTransitions from "@/hooks/useLockTransitions";
 import { useRef } from "react";
 
+type ConfirmationModalProps = {
+    visible : boolean;
+    confirmationText: string;
+    warning? : { text? : string, success?: boolean};
+    confirmationButtonText: string;
+    cancelButtonText: string;
+    confirmationFunction: ()=>void;
+    closeModal: ()=>void;
+}
 
-export default function ConfirmationModal({ visible, confirmationText, warning, confirmationButtonText, cancelButtonText, confirmationFunction, closeModal }) {
+export default function ConfirmationModal({ visible, confirmationText, warning, confirmationButtonText, cancelButtonText, confirmationFunction, closeModal } : ConfirmationModalProps) {
 
     // Stop the scroll of the body of the page when scrolling in the menu
     useLockBodyScroll(visible);

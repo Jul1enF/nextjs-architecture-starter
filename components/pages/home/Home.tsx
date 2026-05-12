@@ -59,8 +59,8 @@ export default function Home() {
           selectedItem={selectedItem}
           setSelectedItem={setSelectedItem}
           placeholderText={"Choisissez la couleur"}
-          titleToSelectKey={"frenchTitle"}
-          sectionToSelectKey={"englishTitle"}
+          titleKey={"frenchTitle"}
+          valueKey={"englishTitle"}
           itemClass={"largeCardItem"}
           appearanceClass={"strongGreyBorder"}
           iconColor={"var(--placeholder-color)"}
