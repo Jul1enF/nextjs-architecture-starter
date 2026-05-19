@@ -14,10 +14,10 @@ export type AutocompleteItem = string | AutocompleteObjectItem
 
     // AUTOCOMPLETE
 
-    export type AutocompleteProps = {
+    export type AutocompleteProps<T = unknown> = {
         data: AutocompleteItem[];
-        setSelectedItem: Dispatch<SetStateAction<unknown>>;
-        selectedItem: unknown;
+        setSelectedItem: Dispatch<SetStateAction<T | null>>;
+        selectedItem: T | null;
         valueKey?: string;
         titleKey?: string;
         placeholderText?: string;

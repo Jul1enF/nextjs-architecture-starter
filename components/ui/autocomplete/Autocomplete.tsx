@@ -13,7 +13,7 @@ import { isArrayOfString } from "@/utils/typeGuards";
 // - THE ITEMS ARE OBJECT AND THE AUTCOMPLETE HAS THE PROPS "titleKey"
 // - THE ITEMS ARE DIRECTLY A STRING
 
-export default function Autocomplete
+export default function Autocomplete< T = unknown >
   ({
     data,
     setSelectedItem,
@@ -36,7 +36,7 @@ export default function Autocomplete
     readOnly = false,
     showClear = true,
     autoCapitalize,
-  }: AutocompleteProps) {
+  }: AutocompleteProps<T>) {
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -125,7 +125,7 @@ export default function Autocomplete
         className={`${styles.item} ${itemClass ?? "largeItem"} ${dropdownTextClass ?? "regularText"}`}
         style={{ marginTop: 0 }}
         onClick={() => {
-          setSelectedItem(valueKey ? getKeyValue(item, valueKey) : item)
+          setSelectedItem( (valueKey ? getKeyValue(item, valueKey) : item) as T)
           setDropdownVisible(false);
         }}
       >
@@ -240,10 +240,10 @@ export default function Autocomplete
             )
 
             if (foundItem) {
-              setSelectedItem(!valueKey ? foundItem : getKeyValue(foundItem, valueKey) )
+              setSelectedItem( (!valueKey ? foundItem : getKeyValue(foundItem, valueKey)) as T )
             } else if (canCreate) {
-              registerAString ? setSelectedItem(inputValue) :
-                setSelectedItem({ [resolvedTitleKey]: inputValue, ...(valueKey && { [valueKey]: inputValue }) })
+              registerAString ? setSelectedItem(inputValue as T) :
+                setSelectedItem({ [resolvedTitleKey]: inputValue, ...(valueKey && { [valueKey]: inputValue }) } as T)
             }
             setDropdownVisible(false)
           }

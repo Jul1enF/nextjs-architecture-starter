@@ -7,7 +7,8 @@
     "dev-wp": "next dev -p 3001 --webpack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ts-check" : "tsc --noEmit"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.1",

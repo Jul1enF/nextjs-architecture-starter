@@ -8,7 +8,7 @@ import Autocomplete from '@/components/ui/autocomplete/Autocomplete';
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false)
 
-  const [selectedItem, setSelectedItem] = useState("Green")
+  const [selectedItem, setSelectedItem] = useState<string | null>("Green")
 
   const list = [{ frenchTitle: "Jaune", englishTitle: "Yellow" }, { frenchTitle: "Vert", englishTitle: "Green" }, { frenchTitle: "Rouge", englishTitle: "Red" }, { frenchTitle: "Rose", englishTitle: "Pink" }, { frenchTitle: "Violet", englishTitle: "Purple" }]
 

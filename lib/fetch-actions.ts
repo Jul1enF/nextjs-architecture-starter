@@ -1,7 +1,8 @@
 'use server'
 
+import { RequestAction } from "@/app-types/fetch-actions.types";
 
-export async function request (url, path, urlParams, options){
+export const request : RequestAction = async (url, path, urlParams, options) => {
     try {
         const response = await fetch(`${url}${path}${urlParams}`, options);
         return await response.json()
