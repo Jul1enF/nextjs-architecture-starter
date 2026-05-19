@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Architecture Starter
 
-## Getting Started
+A clean and modular Next.js starter designed to accelerate development while maintaining a robust and maintainable architecture.
 
-First, run the development server:
+## 🚀 Purpose
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project provides a solid foundation for building modern web applications with:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Clear folder structure
+- Reusable components
+- Centralized styles
+- Custom hooks and utilities
+- Global state management with Redux
+- Generic API handling
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Instead of starting from scratch, this starter allows you to focus directly on business logic.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧱 Architecture
 
-## Learn More
+The project is structured to promote:
 
-To learn more about Next.js, take a look at the following resources:
+- Separation of concerns
+- Reusability
+- Readability
+- Easy evolution of features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Included Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Pre-configured project structure
+- Reusable components
+- Custom hooks and utilities
+- Centralized styling system
+- Redux state management
+- Generic fetch wrapper with error handling
 
-## Deploy on Vercel
+## 📦 Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Next.js
+- React
+- TypeScript
+- Redux
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎯 Philosophy
+
+This is not just a template, but a development base designed to:
+
+- Save time on setup
+- Encourage clean code practices
+- Provide consistency across projects
+
+## 🛠️ Usage
+
+Clone the repository and adapt it to your needs:
+
+- Remove unnecessary parts
+- Extend existing utilities
+- Add your own business logic
+
+## 📌 Note
+
+This project intentionally does not enforce authentication or external integrations, allowing full flexibility depending on project requirements.
