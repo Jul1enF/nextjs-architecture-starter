@@ -5,11 +5,11 @@
     white-space: nowrap;
     flex-shrink: 0;
     position: relative;
-    border-bottom: solid calc(6 * var(--ui-unit)) transparent;
-    margin-top: calc(6 * var(--ui-unit));
+    border-bottom: calc(6 * var(--ui-unit)) solid transparent;
+    padding-top: calc(6 * var(--ui-unit));
 }
 
 .unselectedLinkItem:hover {
     color: var(--bright-grey);
-    border-bottom: solid calc(6 * var(--ui-unit)) color-mix(in srgb, var(--strong-red) 60%, transparent);
+    border-bottom: calc(6 * var(--ui-unit)) solid color-mix(in srgb, var(--strong-red) 60%, transparent);
 }

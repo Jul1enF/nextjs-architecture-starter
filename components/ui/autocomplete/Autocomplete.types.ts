@@ -14,10 +14,10 @@ export type AutocompleteItem = string | AutocompleteObjectItem
 
     // AUTOCOMPLETE
 
-    export type AutocompleteProps<T = unknown> = {
+    export type AutocompleteProps<SelectedItemType = unknown> = {
         data: AutocompleteItem[];
-        setSelectedItem: Dispatch<SetStateAction<T | null>>;
-        selectedItem: T | null;
+        setSelectedItem: Dispatch<SetStateAction<SelectedItemType | null>>;
+        selectedItem: SelectedItemType | null;
         valueKey?: string;
         titleKey?: string;
         placeholderText?: string;
@@ -32,7 +32,7 @@ export type AutocompleteItem = string | AutocompleteObjectItem
         dropdownLineColor?: CSSProperties["color"];
         boldTitleWeight?: CSSProperties["fontWeight"];
         iconColor?: CSSProperties["color"];
-        canCreate?: boolean | "string";
+        canCreate?: "object" | "string";
         readOnly?: boolean;
         showClear?: boolean;
         autoCapitalize?: string;

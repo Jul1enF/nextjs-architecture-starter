@@ -13,7 +13,7 @@ import { isArrayOfString } from "@/utils/typeGuards";
 // - THE ITEMS ARE OBJECT AND THE AUTCOMPLETE HAS THE PROPS "titleKey"
 // - THE ITEMS ARE DIRECTLY A STRING
 
-export default function Autocomplete< T = unknown >
+export default function Autocomplete<SelectedItemType = unknown>
   ({
     data,
     setSelectedItem,
@@ -32,27 +32,37 @@ export default function Autocomplete< T = unknown >
     dropdownLineColor,
     boldTitleWeight = "700",
     iconColor,
-    canCreate, // true = create an object if the items are one ; "string" = create a string anycase
+    canCreate, // "object" = create an object in selectedItem ; "string" = create a string
     readOnly = false,
     showClear = true,
     autoCapitalize,
-  }: AutocompleteProps<T>) {
+  }: AutocompleteProps<SelectedItemType>) {
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   // Var to help set selectedItem
-  const registerAString = isArrayOfString(data) || canCreate === "string"
   const resolvedTitleKey = titleKey ?? "title"
-
 
 
 
   // USEEFFECT WITH A CLICK LISTENER TO CLOSE THE AUTOCOMPLETE IF CLICKED OUTSIDE
   const autoCompleteRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
+      const path = e.composedPath();
+
+      const clickedClearButton = path.some((element) => {
+        return ( element instanceof HTMLElement && element.dataset.autocompleteClear === "true");
+      });
+
+      if (clickedClearButton) {
+        return;
+      }
+
       if (!(e.target instanceof Node)) return
+
       if (
         autoCompleteRef.current &&
         !autoCompleteRef.current.contains(e.target)
@@ -77,7 +87,22 @@ export default function Autocomplete< T = unknown >
       setInputValue("")
       return
     }
-    else if (selectedItem && selectedItem !== inputValue) {
+
+    if (!selectedItem) return
+
+    // For the cases where canCreate = "string" and a registration of the input value has just been made in selectedItem
+    if (typeof selectedItem === "string" && selectedItem === inputValue) {
+      return
+    }
+
+    // For the cases where canCreate = "object" and a registration of the input value has just been made in a title key of the selectedItem object
+    if (typeof selectedItem === "object" &&
+      getStringValue(selectedItem, resolvedTitleKey) === inputValue
+    ) {
+      return
+    }
+
+    if (selectedItem && selectedItem !== inputValue) {
 
       if (isArrayOfString(data) && typeof selectedItem === "string") {
         setInputValue(selectedItem)
@@ -105,14 +130,14 @@ export default function Autocomplete< T = unknown >
         const title = typeof e === "string" ? e : getStringValue(e, resolvedTitleKey)
         return title && title.toLowerCase().includes(inputTxtLC)
       })
-      
+
     }
   }, [data, inputValue])
 
 
 
   // DROPDOWN ITEM COMPONENT
-  const Item = ({ item } : { item : AutocompleteItem | null}) => {
+  const Item = ({ item }: { item: AutocompleteItem | null }) => {
 
     const title = typeof item === "string" ? item : getStringValue(item, resolvedTitleKey)
     const boldTitle = getStringValue(item, "boldTitle")
@@ -125,7 +150,7 @@ export default function Autocomplete< T = unknown >
         className={`${styles.item} ${itemClass ?? "largeItem"} ${dropdownTextClass ?? "regularText"}`}
         style={{ marginTop: 0 }}
         onClick={() => {
-          setSelectedItem( (valueKey ? getKeyValue(item, valueKey) : item) as T)
+          setSelectedItem((valueKey ? getKeyValue(item, valueKey) : item) as SelectedItemType)
           setDropdownVisible(false);
         }}
       >
@@ -142,6 +167,7 @@ export default function Autocomplete< T = unknown >
       </button>
     );
   };
+
 
 
   // MAP OF THE DROPDOWN ITEM COMPONENT
@@ -187,6 +213,8 @@ export default function Autocomplete< T = unknown >
     >
       {(showClear && (selectedItem || inputValue)) && (
         <button className={styles.closeIconContainer}
+          type="button"
+          data-autocomplete-clear="true"
           onClick={() => {
             setSelectedItem(null);
             setInputValue("");
@@ -202,6 +230,7 @@ export default function Autocomplete< T = unknown >
       )}
 
       <button className={styles.chevronIconContainer}
+        type="button"
         onClick={() => setDropdownVisible(!dropdownVisible)}
       >
         <IoChevronDown
@@ -228,22 +257,24 @@ export default function Autocomplete< T = unknown >
         autoCapitalize={autoCapitalize ?? "sentences"}
         onChange={(e) => {
           setInputValue(e.target.value);
+
+          if (canCreate === "string") {
+            setSelectedItem(e.target.value as SelectedItemType)
+          } else if (canCreate === "object") {
+            setSelectedItem({ [resolvedTitleKey]: e.target.value, ...(valueKey && { [valueKey]: e.target.value }) } as SelectedItemType)
+          }
         }}
         onKeyDown={(event) => {
           if (event.code === "Enter" || event.keyCode === 13) {
 
-            const inputValueLC = inputValue.toLowerCase()
+            const inputValueLC = event.currentTarget.value.toLowerCase()
             const foundItem = data.find(e => {
               const title = typeof e === "string" ? e : getStringValue(e, resolvedTitleKey)
               return title && title.toLowerCase() === inputValueLC
-            }
-            )
+            })
 
             if (foundItem) {
-              setSelectedItem( (!valueKey ? foundItem : getKeyValue(foundItem, valueKey)) as T )
-            } else if (canCreate) {
-              registerAString ? setSelectedItem(inputValue as T) :
-                setSelectedItem({ [resolvedTitleKey]: inputValue, ...(valueKey && { [valueKey]: inputValue }) } as T)
+              setSelectedItem((!valueKey ? foundItem : getKeyValue(foundItem, valueKey)) as SelectedItemType)
             }
             setDropdownVisible(false)
           }

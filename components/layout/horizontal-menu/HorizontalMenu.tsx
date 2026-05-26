@@ -60,7 +60,7 @@ export default function HorizontalMenu() {
     // Check that selected section is accurate with the current location (for underline)
     const pathname = usePathname()
 
-    const urlMatchSection = (section : HorizontalMenuItemOptions) => {
+    const urlMatchSection = (section : HorizontalMenuItemOptions | null) => {
         if (pathname === section?.link || section?.link && pathname.startsWith(`${section?.link}/`)) {
             return true
         } else return false
@@ -72,7 +72,7 @@ export default function HorizontalMenu() {
         const sectionFound = sectionsArray.find(e => urlMatchSection(e))
 
         // If a section has been found, setting of selectedSection to it
-        if (selectedSection && !urlMatchSection(selectedSection) && sectionFound) {
+        if (!urlMatchSection(selectedSection) && sectionFound) {
             setSelectedSection(sectionFound)
         }
         // Else setting of selectedSection to null
