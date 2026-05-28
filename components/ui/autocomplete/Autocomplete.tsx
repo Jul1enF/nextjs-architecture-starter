@@ -91,12 +91,12 @@ export default function Autocomplete<SelectedItemType = unknown>
     if (!selectedItem) return
 
     // For the cases where canCreate = "string" and a registration of the input value has just been made in selectedItem
-    if (typeof selectedItem === "string" && selectedItem === inputValue) {
+    if (canCreate === "string" && typeof selectedItem === "string" && selectedItem === inputValue) {
       return
     }
 
     // For the cases where canCreate = "object" and a registration of the input value has just been made in a title key of the selectedItem object
-    if (typeof selectedItem === "object" &&
+    if (canCreate === "object" && typeof selectedItem === "object" &&
       getStringValue(selectedItem, resolvedTitleKey) === inputValue
     ) {
       return
