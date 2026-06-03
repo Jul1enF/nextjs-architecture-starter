@@ -17,7 +17,11 @@ export default function AppLayoutWrapper({ children }: { children: React.ReactNo
             <header>
                 <Header />
 
-                {landscapeDisplay && <HorizontalMenu />}
+                {landscapeDisplay && (
+                    <nav aria-label="Navigation principale en paysage">
+                        <HorizontalMenu />
+                    </nav>
+                )}
             </header>
 
             <main>
@@ -25,7 +29,7 @@ export default function AppLayoutWrapper({ children }: { children: React.ReactNo
             </main>
 
             {!landscapeDisplay && (
-                <nav aria-label="Navigation principale mobile">
+                <nav aria-label="Navigation principale mobile / portrait">
                     <BottomTabBar />
                 </nav>
             )}

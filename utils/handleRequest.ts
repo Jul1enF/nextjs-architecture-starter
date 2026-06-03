@@ -54,7 +54,7 @@ const getDocsCount = (storedData: unknown) => {
 type RequestProps = {
     path: string;
     method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
-    body?: object;
+    body?: object | FormData;
     params?: string | object;
     jwtToken: string;
     setSessionExpired?: Dispatch<SetStateAction<boolean>>;
