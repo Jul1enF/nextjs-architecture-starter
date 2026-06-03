@@ -1,7 +1,7 @@
 'use client'
 
 
-import styles from "@/styles/ui/ConfirmationModal.module.css"
+import styles from "./ConfirmationModal.module.css"
 import useLockBodyScroll from "@/hooks/useLockBodyScroll";
 import useLockTransitions from "@/hooks/useLockTransitions";
 import { useRef } from "react";

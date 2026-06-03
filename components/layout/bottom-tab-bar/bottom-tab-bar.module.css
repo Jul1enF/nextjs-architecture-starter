@@ -1,0 +1,60 @@
+/* BOTTOM TAB BAR */
+
+.mainContainer {
+    min-width: 100%;
+    min-height: var(--tab-bar-height);
+    height: var(--tab-bar-height);
+    background-color: var(--strong-black);
+    position: fixed;
+    z-index: 10;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 calc(3 * var(--ui-unit));
+    border-top: 1px solid var(--medium-grey);
+}
+
+
+
+
+/* BOTTOM TAB BAR ITEM */
+
+.itemContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    max-width: 20%;
+    max-height: 100%;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.icon {
+    color: var(--light-grey);
+    width: calc(27 * var(--ui-unit));
+    height: calc(27 * var(--ui-unit));
+}
+
+.selectedIcon {
+    color: var(--dark-white);
+    width: calc(27 * var(--ui-unit));
+    height: calc(27 * var(--ui-unit));
+}
+
+.pageName {
+    color: var(--light-grey);
+    font-size: calc(18 * var(--ui-unit));
+    font-weight: 600;
+    margin: calc(5 * var(--ui-unit)) 0 0 0;
+}
+
+.selectedPageName {
+    color: var(--dark-white);
+    font-size: calc(18 * var(--ui-unit));
+    font-weight: 600;
+    margin: calc(5 * var(--ui-unit)) 0 0 0;
+}

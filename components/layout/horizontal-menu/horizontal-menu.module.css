@@ -1,3 +1,5 @@
+/* HORIZONTAL MENU */
+
 .mainContainer {
     display: flex;
     align-items: center;
@@ -22,4 +24,23 @@
     bottom: 0;
     transition: left 0.4s,
         width 0.4s;
+}
+
+
+/* HORIZONTAL MENU ITEM */
+
+.linkItem {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    white-space: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    border-bottom: calc(6 * var(--ui-unit)) solid transparent;
+    padding-top: calc(6 * var(--ui-unit));
+}
+
+.unselectedLinkItem:hover {
+    color: var(--bright-grey);
+    border-bottom: calc(6 * var(--ui-unit)) solid color-mix(in srgb, var(--strong-red) 60%, transparent);
 }

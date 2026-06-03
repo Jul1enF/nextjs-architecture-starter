@@ -1,6 +1,6 @@
 'use client'
 
-import styles from "@/styles/layout/horizontal-menu/HorizontalMenu.module.css"
+import styles from "./horizontal-menu.module.css"
 import { useRef, useState, useLayoutEffect, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import useWindowDimensions from "@/hooks/useWindowDimensions"

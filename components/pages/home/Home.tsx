@@ -1,7 +1,7 @@
 'use client'
 
-import styles from '@/styles/pages/home/Home.module.css';
-import ConfirmationModal from '@/components/ui/ConfirmationModal';
+import styles from './Home.module.css';
+import ConfirmationModal from '@/components/ui/confirmation-modal/ConfirmationModal';
 import { useState } from 'react';
 import Autocomplete from '@/components/ui/autocomplete/Autocomplete';
 

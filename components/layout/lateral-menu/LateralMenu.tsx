@@ -1,7 +1,7 @@
 'use client'
 
 
-import styles from "@/styles/layout/lateral-menu/LateralMenu.module.css";
+import styles from "./lateral-menu.module.css";
 import { useEffect, useRef } from "react";
 import useLockBodyScroll from "@/hooks/useLockBodyScroll"
 import useLockTransitions from "@/hooks/useLockTransitions";

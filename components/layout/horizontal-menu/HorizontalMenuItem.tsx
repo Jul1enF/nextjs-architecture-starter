@@ -1,7 +1,7 @@
 'use client'
 
 
-import styles from "@/styles/layout/horizontal-menu/HorizontalMenuItem.module.css"
+import styles from "./horizontal-menu.module.css"
 import { useRouter } from "next/navigation"
 import { HorizontalMenuItemOptions } from "./HorizontalMenu"
 

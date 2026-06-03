@@ -1,9 +1,9 @@
 import { Roboto, Inter } from "next/font/google";
-import '@/styles/global/fonts.css'
-import '@/styles/global/colors.css'
-import '@/styles/global/components.css'
-import '@/styles/global/scaledUnits.css'
-import '@/styles/global/globals.css';
+import '@/styles/fonts.css'
+import '@/styles/colors.css'
+import '@/styles/components.css'
+import '@/styles/scaledUnits.css'
+import '@/styles/globals.css';
 
 import ClientProviderWrapper from "@/components/layout-wrapper/ClientProviderWrapper";
 

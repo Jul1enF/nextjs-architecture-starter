@@ -1,6 +1,6 @@
 'use client'
 
-import styles from "@/styles/ui/autocomplete/Autocomplete.module.css";
+import styles from "./Autocomplete.module.css";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { IoChevronDown } from "react-icons/io5";
 import { IoMdCloseCircleOutline } from "react-icons/io";
@@ -54,7 +54,7 @@ export default function Autocomplete<SelectedItemType = unknown>
       const path = e.composedPath();
 
       const clickedClearButton = path.some((element) => {
-        return ( element instanceof HTMLElement && element.dataset.autocompleteClear === "true");
+        return ( element instanceof HTMLElement && element.dataset?.autocompleteClear === "true");
       });
 
       if (clickedClearButton) {

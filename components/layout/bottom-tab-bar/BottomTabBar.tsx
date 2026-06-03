@@ -1,11 +1,11 @@
 'use client '
 
-import styles from "@/styles/layout/phone/PhoneTabBar.module.css"
-import PhoneTabBarItem from "./PhoneTabBarItem"
+import styles from "./bottom-tab-bar.module.css"
+import BottomTabBarItem from "./BottomTabBarItem"
 import { useState, useEffect } from "react"
 
 
-export default function PhoneTabBar() {
+export default function BottomTabBar() {
 
     const [keyboardMounted, setKeyboardMounted] = useState(false)
 
@@ -26,10 +26,10 @@ export default function PhoneTabBar() {
 
     return (
         <div className={styles.mainContainer} style={keyboardMounted ? { visibility : "hidden" } : { visibility : "visible" }} data-fixed-footer="true">
-            <PhoneTabBarItem targetedPage="/" />
-            <PhoneTabBarItem targetedPage="/vods" />
-            <PhoneTabBarItem targetedPage="/user-profile" />
-            <PhoneTabBarItem targetedPage="/bookmarks" />
+            <BottomTabBarItem targetedPage="/" />
+            <BottomTabBarItem targetedPage="/vods" />
+            <BottomTabBarItem targetedPage="/user-profile" />
+            <BottomTabBarItem targetedPage="/bookmarks" />
         </div>
     )
 }

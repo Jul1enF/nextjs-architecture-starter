@@ -1,6 +1,6 @@
-'use'
+'use client'
 
-import styles from "@/styles/layout/Header.module.css"
+import styles from "./Header.module.css"
 import Link from "next/link"
 import LateralMenu from "@/components/layout/lateral-menu/LateralMenu";
 import LateralMenuButton from "@/components/layout/lateral-menu/LateralMenuButton";

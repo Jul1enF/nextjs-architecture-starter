@@ -1,6 +1,6 @@
 'use client'
 
-import styles from "@/styles/layout/lateral-menu/LateralMenuButton.module.css";
+import styles from "./lateral-menu.module.css";
 import { IoMenu } from "react-icons/io5";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 

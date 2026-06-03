@@ -1,7 +1,7 @@
 'use client'
 
-import Header from "@/components/layout/Header"
-import PhoneTabBar from "@/components/layout/phone/PhoneTabBar";
+import Header from "@/components/layout/header/Header"
+import BottomTabBar from "@/components/layout/bottom-tab-bar/BottomTabBar";
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 import HorizontalMenu from '@/components/layout/horizontal-menu/HorizontalMenu';
 
@@ -26,7 +26,7 @@ export default function AppLayoutWrapper({ children }: { children: React.ReactNo
 
             {!landscapeDisplay && (
                 <nav aria-label="Navigation principale mobile">
-                    <PhoneTabBar />
+                    <BottomTabBar />
                 </nav>
             )}
         </>

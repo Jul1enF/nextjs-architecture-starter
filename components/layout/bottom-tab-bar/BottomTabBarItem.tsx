@@ -1,6 +1,6 @@
 'use client'
 
-import styles from "@/styles/layout/phone/PhoneTabBarItem.module.css"
+import styles from "./bottom-tab-bar.module.css"
 import Link from 'next/link';
 import { useState, useEffect } from "react";
 import { usePathname } from 'next/navigation'
@@ -10,7 +10,7 @@ import { MdOndemandVideo } from "react-icons/md"
 import { RiStarLine } from "react-icons/ri";
 
 
-export default function PhoneTabBarItem({ targetedPage } : { targetedPage : string}) {
+export default function BottomTabBarItem({ targetedPage } : { targetedPage : string}) {
 
     // Logic to know if the tabbar item page is selected
     const [targetedPageSelected, setTargetedPageSelected] = useState(false)
@@ -56,7 +56,7 @@ export default function PhoneTabBarItem({ targetedPage } : { targetedPage : stri
     }
 
     return (
-        <Link className={`${styles.mainContainer} ${targetedPageSelected && styles.selectedItemBackground}`} href={`${targetedPage}`}>
+        <Link className={`${styles.itemContainer} ${targetedPageSelected && styles.selectedItemBackground}`} href={`${targetedPage}`}>
             {icon}
             <p className={targetedPageSelected ? styles.selectedPageName : styles.pageName}>
                 {pageName}

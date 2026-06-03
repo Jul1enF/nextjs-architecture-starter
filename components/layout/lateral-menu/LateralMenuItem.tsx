@@ -1,6 +1,6 @@
 'use client'
 
-import styles from "@/styles/layout/lateral-menu/LateralMenuItem.module.css";
+import styles from "./lateral-menu.module.css";
 import { useRouter } from 'next/navigation'
 
 type LateralMenuItemProps = {
@@ -24,7 +24,7 @@ export default function LateralMenuItem({ sectionName, link, func, hide } : Late
   };
 
   return (
-    <button className={styles.mainContainer} type="button" onClick={sectionClick} >
+    <button className={styles.itemButton} type="button" onClick={sectionClick} >
       {sectionName}
     </button>
   );
