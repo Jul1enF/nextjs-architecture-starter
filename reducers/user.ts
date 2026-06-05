@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type User = {
     isConnected : boolean,
+    hasToken : boolean,
     first_name: string,
     last_name: string,
     email: string,
@@ -23,6 +24,7 @@ type UpdateUserInfosPayload = {
 const initialState: UserState = {
     value: {
         isConnected : false,
+        hasToken : false,
         first_name: "",
         last_name: "",
         email: "",
@@ -39,8 +41,12 @@ export const userSlice = createSlice({
         login: (state: UserState, action: PayloadAction<User>) => {
             state.value = action.payload
         },
-        logout: (state: UserState) => {
+        logout: (state: UserState, action: PayloadAction<boolean | undefined>) => {
             state.value = { ...initialState.value }
+            state.value.hasToken = action?.payload ?? true
+        },
+        clearHasToken: (state: UserState) => {
+            state.value.hasToken = false
         },
         addBookmark: (state, action: PayloadAction<string>) => {
             state.value.bookmarks.push(action.payload)
@@ -54,5 +60,5 @@ export const userSlice = createSlice({
     }
 })
 
-export const { login, logout, addBookmark, removeBookmark, changeUserInfos } = userSlice.actions
+export const { login, logout, clearHasToken, addBookmark, removeBookmark, changeUserInfos } = userSlice.actions
 export default userSlice.reducer

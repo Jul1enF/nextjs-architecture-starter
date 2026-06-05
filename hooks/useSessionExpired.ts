@@ -11,14 +11,21 @@ export default function useSessionExpired(sessionExpired: boolean, setSessionExp
         setSessionExpired(false)
         router.push("/")
 
-        // Erase the tokens in the cookie
-        await fetch('/api/logout', {
-            method: 'POST',
-            credentials: 'include',
-        });
+        try {
+            // Erase the tokens in the cookie
+            const response = await fetch('/api/logout', {
+                method: 'POST',
+                credentials: 'include',
+            });
 
-        dispatch(logout())
+            const { hasToken } = await response.json()
+
+            dispatch(logout(!!hasToken))
+        } catch (err) {
+            dispatch(logout(false))
+        }
     }
+
 
     useEffect(() => {
         if (sessionExpired) {

@@ -5,7 +5,7 @@ import '@/styles/components.css'
 import '@/styles/scaledUnits.css'
 import '@/styles/globals.css';
 
-import ClientProviderWrapper from "@/components/layout-wrapper/ClientProviderWrapper";
+import ClientProviderWrapper from "@/components/layout-wrappers/ClientProviderWrapper";
 
 
 const inter = Inter({

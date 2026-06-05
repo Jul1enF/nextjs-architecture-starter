@@ -4,7 +4,7 @@ export async function POST() {
     try {
         const cookieStore = await cookies();
 
-        const isLocal = process.env.NODE_ENV !== 'production';
+        const isLocal = process.env.NODE_ENV as "development" | "production" | "preview" | "local" === 'local';
 
         // HAS TO BE SAME CONFIG AS THE BACK
         const sameSite: 'lax' | 'none' = isLocal ? 'lax' : 'none'
@@ -25,8 +25,9 @@ export async function POST() {
             expires: new Date(0),
         });
 
-        return Response.json({ success: true });
+        return Response.json({ success: true , hasToken : false});
     } catch (err) {
         console.error(err)
+        return Response.json({ success: false, hasToken : true })
     }
 }

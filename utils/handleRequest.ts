@@ -1,6 +1,5 @@
 'use client'
 
-import { cookies } from 'next/headers';
 import { Dispatch, SetStateAction, RefObject } from "react"
 import { RequestAction } from "@/app-types/fetch-actions.types"
 import { hasId } from "./typeGuards"
@@ -86,7 +85,7 @@ type ApiResponse<SpecificApiData = unknown> = ApiBaseResponse & SpecificApiData
 // FETCH + ERROR HANDLER
 
 export default async function handleRequest<SpecificApiData = unknown>
-    (requestProps: RequestProps, request: RequestAction)
+    (requestProps: RequestProps, requestFunction: RequestAction)
     : Promise<ApiResponse<SpecificApiData> | void> {
 
     const { path, method = "GET", body, params, sendToken, setSessionExpired, functionRef, setWarning, setModalVisible, setUploading, clearEtag, storedData } = requestProps
@@ -116,26 +115,15 @@ export default async function handleRequest<SpecificApiData = unknown>
         warning && setWarning({})
         uploading && setUploading(true)
 
-        const url = process.env.NEXT_PUBLIC_BACK_ADDRESS;
-
-        if (!url) {
-            throw new Error("NEXT_PUBLIC_BACK_ADDRESS is not defined")
-        }
 
         // Headers
         const headers: CustomHeaders = { "X-Client-Type": "web-app" };
-        if (sendToken) {
-            const cookieStore = await cookies();
-            const csrfToken = cookieStore.get('csrf-token')?.value;
-            headers['X-Csrf-Token'] = csrfToken ?? ""
-        }
 
         if (clearEtag) headers["If-None-Match"] = ""
         if ("storedData" in requestProps) headers["X-Docs-Count"] = getDocsCount(storedData).toString()
 
         // Options
         const options: RequestInit = { method, headers };
-        if (sendToken) options.credentials = "include"
         
         // Body
         if (body) {
@@ -154,7 +142,7 @@ export default async function handleRequest<SpecificApiData = unknown>
 
 
         // Fetch
-        const data = await request(url, path, urlParams, options) as ApiResponse<SpecificApiData>
+        const data = await requestFunction(url, path, urlParams, options) as ApiResponse<SpecificApiData>
 
         if (!data.result) {
             displayWarning(data.errorText)

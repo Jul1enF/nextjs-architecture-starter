@@ -29,7 +29,7 @@ export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
   // Freeze the menu css transitions when page is resized
   useLockTransitions(menuRef)
 
-  
+
   // Log out
   const router = useRouter()
   const dispatch = useDispatch()
@@ -37,13 +37,19 @@ export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
   const logoutUser = async () => {
     router.push("/")
 
-    // Erase the tokens in the cookie
-    await fetch('/api/logout', {
-      method: 'POST',
-      credentials: 'include',
-    });
+    try {
+      // Erase the tokens in the cookie
+      const response = await fetch('/api/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
 
-    dispatch(logout())
+      const { hasToken } = await response.json()
+
+      dispatch(logout(!!hasToken))
+    } catch (err) {
+      dispatch(logout(false))
+    }
   }
 
 
