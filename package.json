@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
+    "cert": "mkcert localhost 127.0.0.1 ::1",
+    "https": "node server.ts",
     "dev-wp": "next dev -p 3001 --webpack",
     "build": "next build",
     "start": "next start",

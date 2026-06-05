@@ -8,6 +8,10 @@ import useLockTransitions from "@/hooks/useLockTransitions";
 import LateralMenuItem from "@/components/layout/lateral-menu/LateralMenuItem";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 
+import { useRouter } from "next/navigation"
+import { useDispatch } from "react-redux";
+import { logout } from "@/reducers/user";
+
 type LateralMenuProps = {
   menuVisible: boolean;
   hide: () => void;
@@ -25,11 +29,28 @@ export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
   // Freeze the menu css transitions when page is resized
   useLockTransitions(menuRef)
 
-  const logout = () => console.log("Logged out !")
+  
+  // Log out
+  const router = useRouter()
+  const dispatch = useDispatch()
 
+  const logoutUser = async () => {
+    router.push("/")
+
+    // Erase the tokens in the cookie
+    await fetch('/api/logout', {
+      method: 'POST',
+      credentials: 'include',
+    });
+
+    dispatch(logout())
+  }
+
+
+  // Sections of the menu 
   const sectionsArray = [
     { sectionName: "Accueil", link: "/" },
-    { sectionName: "Se déconnecter", link: "/login", func: logout },
+    { sectionName: "Se déconnecter", func: logoutUser },
     { sectionName: "Favoris", link: "/bookmarks" },
   ]
 
@@ -37,7 +58,7 @@ export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
 
   // Detect click outside the menu to close it
   useEffect(() => {
-    function handleClick(e : MouseEvent) {
+    function handleClick(e: MouseEvent) {
       // Escape click on the toggeling button of the menu
       const menuButton = document.getElementById("lateralMenuButtonId");
 
@@ -67,7 +88,7 @@ export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
       className={`${styles.mainContainer} ${menuVisible ? styles.visible : styles.hidden
         }`}
       ref={menuRef}
-      style={{ height: freeHeight, top: headersHeight}}
+      style={{ height: freeHeight, top: headersHeight }}
     >
       {sections}
     </div>

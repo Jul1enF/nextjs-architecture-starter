@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type User = {
+    isConnected : boolean,
     first_name: string,
     last_name: string,
     email: string,
-    jwtToken: string,
+    is_admin: boolean,
     bookmarks: string[],
     _id: string
 }
@@ -21,10 +22,11 @@ type UpdateUserInfosPayload = {
 
 const initialState: UserState = {
     value: {
+        isConnected : false,
         first_name: "",
         last_name: "",
         email: "",
-        jwtToken: "",
+        is_admin : false,
         bookmarks: [],
         _id: "",
     },

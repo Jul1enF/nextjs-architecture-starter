@@ -1,5 +1,6 @@
 'use client'
 
+import { cookies } from 'next/headers';
 import { Dispatch, SetStateAction, RefObject } from "react"
 import { RequestAction } from "@/app-types/fetch-actions.types"
 import { hasId } from "./typeGuards"
@@ -56,7 +57,7 @@ type RequestProps = {
     method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
     body?: object | FormData;
     params?: string | object;
-    jwtToken: string;
+    sendToken?: boolean;
     setSessionExpired?: Dispatch<SetStateAction<boolean>>;
     functionRef?: RefObject<boolean>;
     setWarning?: Dispatch<SetStateAction<{ text?: string, success?: boolean }>>;
@@ -66,7 +67,7 @@ type RequestProps = {
     storedData: unknown;
 }
 
-type CustomHeaders = Partial<Record<"Authorization" | "If-None-Match" | "X-Docs-Count" | "Content-Type",
+type CustomHeaders = Partial<Record<"If-None-Match" | "X-Docs-Count" | "Content-Type" | "X-Client-Type" | 'X-Csrf-Token',
     string
 >>
 
@@ -88,7 +89,7 @@ export default async function handleRequest<SpecificApiData = unknown>
     (requestProps: RequestProps, request: RequestAction)
     : Promise<ApiResponse<SpecificApiData> | void> {
 
-    const { path, method = "GET", body, params, jwtToken, setSessionExpired, functionRef, setWarning, setModalVisible, setUploading, clearEtag, storedData } = requestProps
+    const { path, method = "GET", body, params, sendToken, setSessionExpired, functionRef, setWarning, setModalVisible, setUploading, clearEtag, storedData } = requestProps
 
     const warning = typeof setWarning === "function"
     const modal = typeof setModalVisible === "function"
@@ -121,12 +122,22 @@ export default async function handleRequest<SpecificApiData = unknown>
             throw new Error("NEXT_PUBLIC_BACK_ADDRESS is not defined")
         }
 
-        const headers: CustomHeaders = jwtToken ? { Authorization: `Bearer ${jwtToken}` } : {};
-        const options: RequestInit = { method, headers };
+        // Headers
+        const headers: CustomHeaders = { "X-Client-Type": "web-app" };
+        if (sendToken) {
+            const cookieStore = await cookies();
+            const csrfToken = cookieStore.get('csrf-token')?.value;
+            headers['X-Csrf-Token'] = csrfToken ?? ""
+        }
 
         if (clearEtag) headers["If-None-Match"] = ""
         if ("storedData" in requestProps) headers["X-Docs-Count"] = getDocsCount(storedData).toString()
 
+        // Options
+        const options: RequestInit = { method, headers };
+        if (sendToken) options.credentials = "include"
+        
+        // Body
         if (body) {
             if (body instanceof FormData) {
                 options.body = body;
@@ -136,10 +147,13 @@ export default async function handleRequest<SpecificApiData = unknown>
             }
         }
 
+        // Params
         const urlParams = params
             ? "/" + (Array.isArray(params) ? params.join("/") : params)
             : "";
 
+
+        // Fetch
         const data = await request(url, path, urlParams, options) as ApiResponse<SpecificApiData>
 
         if (!data.result) {
