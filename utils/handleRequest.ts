@@ -1,7 +1,7 @@
 'use client'
 
 import { Dispatch, SetStateAction, RefObject } from "react"
-import { RequestAction } from "@/app-types/fetch-actions.types"
+import { GenericFetchAction, CustomHeaders, GenericFetchOptions } from "@/app-types/fetch-actions.types"
 import { hasId } from "./typeGuards"
 
 // Function to count the number of docs (arrays or objects) owned by stored data
@@ -66,10 +66,6 @@ type RequestProps = {
     storedData: unknown;
 }
 
-type CustomHeaders = Partial<Record<"If-None-Match" | "X-Docs-Count" | "Content-Type" | "X-Client-Type" | 'X-Csrf-Token',
-    string
->>
-
 type ApiBaseResponse = {
     result: boolean
     errorText?: string
@@ -85,7 +81,7 @@ type ApiResponse<SpecificApiData = unknown> = ApiBaseResponse & SpecificApiData
 // FETCH + ERROR HANDLER
 
 export default async function handleRequest<SpecificApiData = unknown>
-    (requestProps: RequestProps, requestFunction: RequestAction)
+    (requestProps: RequestProps, requestFunction: GenericFetchAction)
     : Promise<ApiResponse<SpecificApiData> | void> {
 
     const { path, method = "GET", body, params, sendToken, setSessionExpired, functionRef, setWarning, setModalVisible, setUploading, clearEtag, storedData } = requestProps
@@ -117,14 +113,14 @@ export default async function handleRequest<SpecificApiData = unknown>
 
 
         // Headers
-        const headers: CustomHeaders = { "X-Client-Type": "web-app" };
+        const headers: CustomHeaders = {};
 
         if (clearEtag) headers["If-None-Match"] = ""
         if ("storedData" in requestProps) headers["X-Docs-Count"] = getDocsCount(storedData).toString()
 
         // Options
-        const options: RequestInit = { method, headers };
-        
+        const options: GenericFetchOptions = { method, headers };
+
         // Body
         if (body) {
             if (body instanceof FormData) {
@@ -142,7 +138,7 @@ export default async function handleRequest<SpecificApiData = unknown>
 
 
         // Fetch
-        const data = await requestFunction(url, path, urlParams, options) as ApiResponse<SpecificApiData>
+        const data = await requestFunction({sendToken, path, urlParams, options}) as ApiResponse<SpecificApiData>
 
         if (!data.result) {
             displayWarning(data.errorText)

@@ -40,9 +40,11 @@ export const userSlice = createSlice({
     reducers: {
         login: (state: UserState, action: PayloadAction<User>) => {
             state.value = action.payload
+            state.value.hasToken = true
         },
         logout: (state: UserState, action: PayloadAction<boolean | undefined>) => {
             state.value = { ...initialState.value }
+            // Defaults to true: if payload is unexpectedly undefined (e.g. server action crashed before returning), assume a token may still exist server-side and let LogoutRetryHandler clean it up.
             state.value.hasToken = action?.payload ?? true
         },
         clearHasToken: (state: UserState) => {

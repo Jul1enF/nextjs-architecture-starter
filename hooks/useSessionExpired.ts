@@ -2,6 +2,7 @@ import { useEffect, Dispatch, SetStateAction } from "react";
 import { useRouter } from "next/navigation"
 import { useDispatch } from "react-redux";
 import { logout } from "@/reducers/user";
+import { logoutAction } from "@/lib/actions/logout";
 
 export default function useSessionExpired(sessionExpired: boolean, setSessionExpired: Dispatch<SetStateAction<boolean>>) {
     const router = useRouter()
@@ -12,16 +13,10 @@ export default function useSessionExpired(sessionExpired: boolean, setSessionExp
         router.push("/")
 
         try {
-            // Erase the tokens in the cookie
-            const response = await fetch('/api/logout', {
-                method: 'POST',
-                credentials: 'include',
-            });
-
-            const { hasToken } = await response.json()
-
+            const { hasToken } = await logoutAction()
             dispatch(logout(!!hasToken))
-        } catch (err) {
+        }
+        catch (err) {
             dispatch(logout(false))
         }
     }

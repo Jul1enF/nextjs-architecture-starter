@@ -1,6 +1,7 @@
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { clearHasToken } from "@/reducers/user";
 import { useEffect } from "react";
+import { logoutAction } from "@/lib/actions/logout";
 
 
 export default function LogoutRetryHandler() {
@@ -13,22 +14,17 @@ export default function LogoutRetryHandler() {
     useEffect(() => {
         if (!hasToken || isConnected) return
 
-        let timeoutLogout : NodeJS.Timeout | undefined;
+        let timeoutLogout: NodeJS.Timeout | undefined;
         let delay = 2000;
         const maxDelay = 30000;
 
         let cancelled = false;
 
-        const logoutAttempt = async (retry : boolean) => {
+        const logoutAttempt = async () => {
             try {
-                const response = await fetch('/api/logout', {
-                    method: 'POST',
-                    credentials: 'include',
-                });
+                const { success } = await logoutAction()
 
                 if (cancelled) return
-
-                const { success } = await response.json()
 
                 if (success) {
                     dispatch(clearHasToken())
@@ -37,16 +33,18 @@ export default function LogoutRetryHandler() {
                 throw new Error('Failed');
             } catch (err) {
                 if (cancelled) return;
-                if (retry) {
-                    delay = Math.min(delay * 2, maxDelay);
-                    timeoutLogout = setTimeout(() => logoutAttempt(true), delay);
-                }
+                delay = Math.min(delay * 2, maxDelay);
+                timeoutLogout = setTimeout(logoutAttempt, delay);
             }
         }
 
-        logoutAttempt(true)
+        logoutAttempt()
 
-        const handleOnline = () => logoutAttempt(false);
+        const handleOnline = () => {
+            clearTimeout(timeoutLogout)
+            delay = 2000
+            logoutAttempt()
+        };
         window.addEventListener('online', handleOnline);
 
         return () => {
