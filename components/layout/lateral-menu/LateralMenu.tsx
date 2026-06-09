@@ -6,7 +6,6 @@ import { useEffect, useRef } from "react";
 import useLockBodyScroll from "@/hooks/useLockBodyScroll"
 import useLockTransitions from "@/hooks/useLockTransitions";
 import LateralMenuItem from "@/components/layout/lateral-menu/LateralMenuItem";
-import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 import { useRouter } from "next/navigation"
 import { useDispatch } from "react-redux";
@@ -24,8 +23,6 @@ export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
   useLockBodyScroll(menuVisible);
 
   const menuRef = useRef<HTMLDivElement>(null);
-
-  const { freeHeight, headersHeight } = useWindowDimensions()
 
   // Freeze the menu css transitions when page is resized
   useLockTransitions(menuRef)
@@ -89,7 +86,6 @@ export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
       className={`${styles.mainContainer} ${menuVisible ? styles.visible : styles.hidden
         }`}
       ref={menuRef}
-      style={{ height: freeHeight, top: headersHeight }}
     >
       {sections}
     </div>

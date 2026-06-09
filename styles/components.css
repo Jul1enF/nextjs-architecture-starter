@@ -5,6 +5,7 @@
 :root {
     --regular-card-width: calc(var(--regular-item-width) + var(--card-horizontal-padding) * 2);
     --headers-height: calc(var(--header-height) + var(--horiz-menu-height, 0px));
+    --free-height: calc(100dvh - calc(var(--headers-height) + var(--tab-bar-height, 0px)));
 }
 
 
@@ -148,8 +149,6 @@
 /* Main sizes of the components */
 :root {
     --header-height: min(calc(80 * var(--ui-unit)), 20dvh);
-    --tab-bar-height: min(calc(86 * var(--ui-unit)), 20lvh);
-    --horiz-menu-height: calc(45 * var(--ui-unit));
 
     --regular-border-radius: calc(10 * var(--ui-unit));
     --regular-horizontal-padding: calc(10 * var(--ui-unit));
@@ -208,6 +207,7 @@
 
 @media (orientation: landscape) {
     :root {
+        --horiz-menu-height: calc(45 * var(--ui-unit));
         --page-padding-bottom: calc(50 * var(--ui-unit));
 
         /* OVERRIDE */
@@ -222,6 +222,7 @@
 
 @media (orientation: portrait) {
     :root {
+        --tab-bar-height: min(calc(86 * var(--ui-unit)), 20lvh);
         --page-padding-bottom: calc(var(--tab-bar-height) + calc(50 * var(--ui-unit)));
     }
 }
