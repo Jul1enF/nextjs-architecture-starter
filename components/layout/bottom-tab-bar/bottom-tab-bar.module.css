@@ -1,5 +1,6 @@
 /* BOTTOM TAB BAR */
 
+
 .mainContainer {
     min-width: 100%;
     min-height: var(--tab-bar-height);
@@ -16,7 +17,12 @@
     border-top: 1px solid var(--medium-grey);
 }
 
-
+/* No display in landscape */
+@media (orientation: landscape){
+    .mainContainer{
+        display: none;
+    }
+}
 
 
 /* BOTTOM TAB BAR ITEM */

@@ -1,5 +1,6 @@
 /* HORIZONTAL MENU */
 
+
 .mainContainer {
     display: flex;
     align-items: center;
@@ -15,6 +16,13 @@
     padding: 0 calc(10 * var(--ui-unit));
     scrollbar-width: none;
     z-index: 8;
+}
+
+/* No display in portrait */
+@media (orientation: portrait){
+    .mainContainer{
+        display: none;
+    }
 }
 
 .underline {

@@ -5,16 +5,18 @@ type AnyHTMLElementRef = RefObject<HTMLElement | null>
 type Refs = AnyHTMLElementRef | AnyHTMLElementRef[] | Record<string, HTMLElement | null>
 
 
-export default function useLockTransitions(refs : Refs) {
+export default function useLockTransitions(refs: Refs) {
+
     const timeout = useRef<NodeJS.Timeout>(undefined);
 
-    const array : AnyHTMLElementRef[] | HTMLElement[] = Array.isArray(refs) ? refs
-        : typeof refs === "object" && refs !== null ? Object.values(refs)
-        : [refs];
-
-    const nodesArray = array.map(e => e && "current" in e ? e.current : e)
-
     useEffect(() => {
+
+        const array: AnyHTMLElementRef[] | HTMLElement[] = Array.isArray(refs) ? refs
+            : typeof refs === "object" && refs !== null ? Object.values(refs)
+                : [refs];
+
+        const nodesArray = array.map(e => e && "current" in e ? e.current : e)
+
         const freezeTransitions = () => {
             nodesArray.forEach(node => node?.classList?.add("noTransition"));
 

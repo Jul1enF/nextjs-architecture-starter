@@ -95,6 +95,10 @@
         position: absolute;
         margin-top: calc(3 * var(--ui-unit));
     }
+
+    .buttonText {
+        display : none;
+    }
 }
 
 
