@@ -15,9 +15,21 @@ import { logoutAction } from "@/lib/actions/logout";
 type LateralMenuProps = {
   menuVisible: boolean;
   hide: () => void;
+  menuButtonRef : React.RefObject<null | HTMLButtonElement>
 }
 
-export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
+export default function LateralMenu({ menuVisible, hide, menuButtonRef }: LateralMenuProps) {
+
+  // Accessibility : click on escape close the menu
+  useEffect(() => {
+  if (!menuVisible) return;
+  const onKey = (e : KeyboardEvent) => { if (e.key === "Escape") hide(); };
+  document.addEventListener("keydown", onKey);
+  return () => document.removeEventListener("keydown", onKey);
+}, [menuVisible, hide]);
+
+
+
 
   // Stop the scroll of the body of the page when scrolling in the menu
   useLockBodyScroll(menuVisible);
@@ -54,20 +66,19 @@ export default function LateralMenu({ menuVisible, hide }: LateralMenuProps) {
 
   const sections = sectionsArray.map((e, i) => <LateralMenuItem {...e} key={i} hide={hide} />)
 
+
+
   // Detect click outside the menu to close it
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      // Escape click on the toggeling button of the menu
-      const menuButton = document.getElementById("lateralMenuButtonId");
-
       if (!(e.target instanceof Node)) return
 
+      // Click on the menu button are also escaped to avoid instant closing/opening
       if (
         menuRef.current &&
-        e.target &&
         !menuRef.current.contains(e.target) &&
-        menuButton &&
-        !menuButton.contains(e.target)
+        menuButtonRef.current &&
+        !menuButtonRef.current.contains(e.target)
       ) { hide() }
     }
 

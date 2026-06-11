@@ -29,7 +29,7 @@
         overflow: hidden;
         display: flex;
         align-items: center;
-        padding : 5% 0;
+        padding : calc(4 * var(--ui-unit)) 0px;
     }
 }
 

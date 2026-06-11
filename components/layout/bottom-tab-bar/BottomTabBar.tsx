@@ -1,4 +1,4 @@
-'use client '
+'use client'
 
 import styles from "./bottom-tab-bar.module.css"
 import BottomTabBarItem from "./BottomTabBarItem"

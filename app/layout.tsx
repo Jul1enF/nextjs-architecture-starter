@@ -6,6 +6,7 @@ import '@/styles/scaledUnits.css'
 import '@/styles/globals.css';
 
 import ClientProviderWrapper from "@/components/layout-wrappers/ClientProviderWrapper";
+import AppLayoutWrapper from "@/components/layout-wrappers/AppLayoutWrapper";
 
 
 const inter = Inter({
@@ -30,7 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={`${inter.variable} ${roboto.variable}`}>
       <body>
         <ClientProviderWrapper >
-          {children}
+          <AppLayoutWrapper>
+            {children}
+          </AppLayoutWrapper>
         </ClientProviderWrapper>
       </body>
     </html>

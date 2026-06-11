@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: space-evenly;
     width: 100vw;
+    max-width: 100vw;
     height: var(--horiz-menu-height);
     max-height: 20dvh;
     background-color: var(--dark-grey);
@@ -25,14 +26,6 @@
     }
 }
 
-.underline {
-    background-color: var(--strong-red);
-    min-height: calc(6 * var(--ui-unit));
-    position: absolute;
-    bottom: 0;
-    transition: left 0.4s,
-        width 0.4s;
-}
 
 
 /* HORIZONTAL MENU ITEM */
@@ -51,4 +44,18 @@
 .unselectedLinkItem:hover {
     color: var(--bright-grey);
     border-bottom: calc(6 * var(--ui-unit)) solid color-mix(in srgb, var(--strong-red) 60%, transparent);
+}
+
+
+
+/* UNDERLINE SLIDER */
+
+
+.underline {
+    background-color: var(--strong-red);
+    min-height: calc(6 * var(--ui-unit));
+    position: absolute;
+    bottom: 0;
+    transition: left 0.4s,
+        width 0.4s;
 }

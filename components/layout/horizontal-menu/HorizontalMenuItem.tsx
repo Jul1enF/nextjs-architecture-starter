@@ -2,36 +2,21 @@
 
 
 import styles from "./horizontal-menu.module.css"
-import { useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
+import { pathnameMatchLink } from "./horizontalMenuUtils"
 import { HorizontalMenuItemOptions } from "./HorizontalMenu"
 
-type HorizontalMenuItemProps = HorizontalMenuItemOptions & {
-    selectedSection: HorizontalMenuItemOptions | null,
-    sectionsRef: React.RefObject<{ [key: string]: HTMLButtonElement }>
-}
 
-export default function HorizontalMenuItem({ sectionName, link, func, selectedSection, sectionsRef }: HorizontalMenuItemProps) {
-    const router = useRouter()
+export default function HorizontalMenuItem({ sectionName, link }: HorizontalMenuItemOptions) {
+     const pathname = usePathname()
 
-    const sectionClick = () => {
-        if (typeof func === "function") {
-            func();
-            link && router.push(`${link}`);
-        } else {
-            router.push(`${link}`);
-        }
-    };
+    const isSelected = pathnameMatchLink(pathname, link)
 
     return (
-        <button
-            type="button"
-            className={`regularText regularTextPx ${styles.linkItem} ${selectedSection?.sectionName !== sectionName && styles.unselectedLinkItem}`}
-            onClick={sectionClick}
-            ref={ref => {
-                if (ref) sectionsRef.current[sectionName] = ref
-            }}
-        >
+        <div className={`regularText regularTextPx ${styles.linkItem} ${!isSelected ? styles.unselectedLinkItem : ""}`} >
+
             {sectionName}
-        </button >
+
+        </div>
     )
 }
