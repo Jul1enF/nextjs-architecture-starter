@@ -3,7 +3,7 @@
 
 import styles from "./horizontal-menu.module.css"
 import { usePathname } from "next/navigation"
-import { pathnameMatchLink } from "./horizontalMenuUtils"
+import { pathnameMatchLink } from "@/utils/pathnameMatchLink"
 import { HorizontalMenuItemOptions } from "./HorizontalMenu"
 
 

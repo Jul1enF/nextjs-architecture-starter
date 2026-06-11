@@ -4,7 +4,7 @@ import styles from "./horizontal-menu.module.css"
 import { useRef } from "react"
 import { usePathname } from "next/navigation"
 import useIsomorphicLayoutEffect from "@/hooks/useIsomorphicLayoutEffect"
-import { pathnameMatchLink } from "./horizontalMenuUtils"
+import { pathnameMatchLink } from "@/utils/pathnameMatchLink"
 import useLockTransitions from "@/hooks/useLockTransitions"
 
 

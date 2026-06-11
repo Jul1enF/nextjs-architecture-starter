@@ -25,7 +25,7 @@ export default function BottomTabBar() {
     }, []);
 
     return (
-        <div className={styles.mainContainer} style={keyboardMounted ? { visibility : "hidden" } : { visibility : "visible" }} data-fixed-footer="true">
+        <div className={styles.mainContainer} style={{ visibility: keyboardMounted ? "hidden" : "visible" }} data-fixed-footer="true">
             <BottomTabBarItem targetedPage="/" />
             <BottomTabBarItem targetedPage="/vods" />
             <BottomTabBarItem targetedPage="/user-profile" />

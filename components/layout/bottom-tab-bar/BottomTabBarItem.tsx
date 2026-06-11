@@ -1,67 +1,39 @@
 'use client'
 
 import styles from "./bottom-tab-bar.module.css"
-import Link from 'next/link';
-import { useState, useEffect } from "react";
+import Link from 'next/link'
+import { pathnameMatchLink } from "@/utils/pathnameMatchLink"
 import { usePathname } from 'next/navigation'
 import { TbUserCircle } from "react-icons/tb"
-import { BsCameraVideo } from "react-icons/bs";
+import { BsCameraVideo } from "react-icons/bs"
 import { MdOndemandVideo } from "react-icons/md"
-import { RiStarLine } from "react-icons/ri";
+import { RiStarLine } from "react-icons/ri"
 
+type TargetedPages = '/' | '/vods' | '/user-profile' | '/bookmarks'
 
-export default function BottomTabBarItem({ targetedPage } : { targetedPage : string}) {
+const PAGES = {
+    '/':             { Icon: BsCameraVideo,  name: "Direct" },
+    '/vods':         { Icon: MdOndemandVideo, name: "VOD" },
+    '/user-profile': { Icon: TbUserCircle,   name: "Mon Profil" },
+    '/bookmarks':    { Icon: RiStarLine,     name: "Favoris" },
+}
 
-    // Logic to know if the tabbar item page is selected
-    const [targetedPageSelected, setTargetedPageSelected] = useState(false)
+export default function BottomTabBarItem({ targetedPage } : {targetedPage : TargetedPages}) {
     const pathname = usePathname()
 
-    const updateTargetedPageSelected = () => {
-        if (pathname === targetedPage || targetedPage && pathname.startsWith(`${targetedPage}/`)) {
-            setTargetedPageSelected(true)
-        } else {
-            setTargetedPageSelected(false)
-        }
-    }
+    const selected = pathnameMatchLink(pathname, targetedPage)
 
-    useEffect(() => {
-        pathname && updateTargetedPageSelected()
-    }, [pathname])
-
-
-
-
-    // Icon of the tab bar
-    let icon = <></>
-    let pageName = ""
-    const iconClassName = targetedPageSelected ? styles.selectedIcon : styles.icon
-
-    switch (targetedPage) {
-        case '/':
-            icon = <BsCameraVideo className={iconClassName} />
-            pageName = "Direct"
-            break;
-        case '/vods':
-            icon = <MdOndemandVideo className={iconClassName} />
-            pageName = "VOD"
-            break;
-        case '/user-profile':
-            icon = <TbUserCircle className={iconClassName} />
-            pageName = "Mon Profil"
-            break;
-        case '/bookmarks':
-            icon = <RiStarLine className={iconClassName} />
-            pageName = "Favoris"
-            break;
-    }
+    const { Icon, name } = PAGES[targetedPage]
 
     return (
-        <Link className={`${styles.itemContainer} ${targetedPageSelected && styles.selectedItemBackground}`} href={`${targetedPage}`}>
-            {icon}
-            <p className={targetedPageSelected ? styles.selectedPageName : styles.pageName}>
-                {pageName}
+        <Link
+            className={`${styles.itemContainer} ${selected ? styles.selectedItemBackground : ''}`}
+            href={targetedPage}
+        >
+            <Icon className={selected ? styles.selectedIcon : styles.icon} />
+            <p className={selected ? styles.selectedPageName : styles.pageName}>
+                {name}
             </p>
         </Link>
     )
-
 }
