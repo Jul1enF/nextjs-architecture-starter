@@ -13,10 +13,10 @@ export default function HorizontalMenuItem({ sectionName, link }: HorizontalMenu
     const isSelected = pathnameMatchLink(pathname, link)
 
     return (
-        <div className={`regularText regularTextPx ${styles.linkItem} ${!isSelected ? styles.unselectedLinkItem : ""}`} >
+        <h3 className={`regularText regularTextPx ${styles.linkItem} ${!isSelected ? styles.unselectedLinkItem : ""}`} >
 
             {sectionName}
 
-        </div>
+        </h3>
     )
 }

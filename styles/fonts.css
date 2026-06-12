@@ -69,6 +69,14 @@
       line-height: 1.05em;
   }
 
+  .fontColorBrightBg {
+    color : var(--strong-black);
+  }
+
+  /* .fontColorDarkBg {
+    color: var(--dark-white);
+  } */
+
 
   /* EXCEPT FOR VERY LARGE SCREENS, FIXED FONT SIZES IN UI UNIT (PX) INSTEAD OF REM TO PREVENT SCALING */
   /* WORKS ONLY WITH FONT SIZE SETTINGS ON COMPUTER BROWSER (NOT WITH ZOOM OPTION) */
