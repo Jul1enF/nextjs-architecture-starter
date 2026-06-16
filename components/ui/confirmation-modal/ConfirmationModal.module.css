@@ -56,7 +56,7 @@
 
     .confirmationText {
         font-weight: 500;
-        color: var(--bright-grey);
+        color: var(--dark-white);
         text-align: center;
         margin: 0;
         font-size: calc(20 * var(--ui-unit));

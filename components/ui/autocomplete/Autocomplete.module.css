@@ -42,7 +42,7 @@
 }
 
 .closeIcon {
-    color: var(--dark-white);
+    color: var(--light-white);
     font-size: max(22px, calc(23 * var(--ui-unit)));
 }
 
@@ -61,7 +61,7 @@
 }
 
 .chevronIcon {
-    color: var(--dark-white);
+    color: var(--light-white);
     font-size: max(24px, calc(25 * var(--ui-unit)));
     display: block;
     transition: transform 0.4s;

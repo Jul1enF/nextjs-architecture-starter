@@ -6,29 +6,22 @@ input::placeholder {
 /* Main colors of the app */
 :root {
     --placeholder-color : rgba(255, 255, 255, 0.31);
-
-    --bright-white: rgba(250, 248, 252, 1);
-
-    --dark-white: rgba(246, 241, 254, 1);
-    --dark-white-2: rgba(238, 231, 232, 1);
-
-    --very-bright-grey : rgba(228, 228, 228, 1);
-
-    --bright-grey: rgb(211, 211, 211);
-
-    --light-grey3: rgba(172, 172, 172, 1);
-    --light-grey2: rgba(149, 149, 149, 1);
-    --light-grey: rgba(129, 129, 129, 1);
-
-    --medium-grey: rgba(113, 113, 113, 1);
-    --medium-grey2: rgb(99, 99, 99);
-    --medium-grey3: rgb(82, 82, 82);
-
     --overflow-grey: rgb(42, 42, 42);
 
-    --strong-grey: rgb(50, 50, 50);
-    --strong-grey2: rgb(35, 35, 35);
+    --bright-white: rgba(250, 248, 252, 1);
+    --light-white: rgba(246, 241, 254, 1);
+    --medium-white: rgba(238, 231, 232, 1);
+    --strong-white : rgba(228, 228, 228, 1);
+    --dark-white: rgb(211, 211, 211);
 
+    /* --bright-grey3: rgba(172, 172, 172, 1);
+    --bright-grey2: rgba(149, 149, 149, 1); */
+    --bright-grey: rgba(129, 129, 129, 1);
+    --light-grey: rgba(113, 113, 113, 1);
+    /* --light-grey2: rgb(99, 99, 99); */
+    --medium-grey: rgb(82, 82, 82);
+    --strong-grey: rgb(50, 50, 50);
+    /* --strong-grey2: rgb(35, 35, 35); */
     --dark-grey: rgb(27, 27, 27);
 
     --strong-black: rgba(6, 0, 15, 1);

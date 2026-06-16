@@ -14,7 +14,7 @@
    ============================================================ */
 
 .pageContent {
-    background-color: var(--light-grey);
+    background-color: var(--bright-grey);
     width: 100vw;
     max-width: 100vw;
     min-height: 100dvh;
@@ -190,13 +190,13 @@
 }
 
 .smallIcon {
-    color: var(--light-grey);
+    color: var(--bright-grey);
     width: calc(20 * var(--ui-unit));
     height: calc(20 * var(--ui-unit));
 }
 
 .line {
-    background-color: var(--bright-grey);
+    background-color: var(--dark-white);
     min-height: 1px
 }
 

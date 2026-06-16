@@ -13,7 +13,7 @@
   }
 
   .pageTitle {
-      color: var(--dark-white);
+      color: var(--light-white);
       margin: 0;
       font-size: 2rem;
       letter-spacing: 0.066em;
@@ -21,7 +21,7 @@
   }
 
   .pageSubtitle {
-      color: var(--dark-white);
+      color: var(--light-white);
       margin: 0;
       font-size: 1.45rem;
       letter-spacing: 0.07em;
@@ -29,7 +29,7 @@
   }
 
   .labelText {
-      color: var(--dark-white);
+      color: var(--light-white);
       font-size: 1.22rem;
       font-weight: 600;
       letter-spacing: 0.09em;
@@ -37,7 +37,7 @@
   }
 
   .largeText {
-      color: var(--dark-white);
+      color: var(--light-white);
       font-size: 1.22rem;
       font-weight: 400;
       letter-spacing: 0.07em;
@@ -45,7 +45,7 @@
   }
 
   .regularText {
-      color: var(--dark-white);
+      color: var(--light-white);
       font-size: var(--regular-font-size);
       font-weight: 400;
       margin: 0;
@@ -54,7 +54,7 @@
   }
 
   .smallText {
-      color: var(--dark-white);
+      color: var(--light-white);
       font-size: 1rem;
       font-weight: 400;
       margin: 0;
@@ -74,7 +74,7 @@
   }
 
   /* .fontColorDarkBg {
-    color: var(--dark-white);
+    color: var(--light-white);
   } */
 
 

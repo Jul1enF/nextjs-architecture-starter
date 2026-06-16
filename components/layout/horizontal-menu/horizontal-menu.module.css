@@ -44,7 +44,7 @@
 }
 
 .unselectedLinkItem:hover {
-    color: var(--bright-grey);
+    color: var(--dark-white);
     border-bottom: calc(6 * var(--ui-unit)) solid color-mix(in srgb, var(--strong-red) 60%, transparent);
 }
 

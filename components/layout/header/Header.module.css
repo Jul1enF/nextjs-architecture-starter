@@ -34,7 +34,7 @@
 }
 
 .headerTitle {
-    color: var(--dark-white);
+    color: var(--light-white);
     margin: 0;
     font-size: calc(36 * var(--ui-unit));
     letter-spacing: calc(2 * var(--ui-unit));

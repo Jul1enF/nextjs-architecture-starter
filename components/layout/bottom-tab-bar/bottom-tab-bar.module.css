@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: space-around;
     padding: 0 calc(3 * var(--ui-unit));
-    border-top: 1px solid var(--medium-grey);
+    border-top: 1px solid var(--light-grey);
 }
 
 /* No display in landscape */
@@ -40,26 +40,26 @@
 }
 
 .icon {
-    color: var(--light-grey);
+    color: var(--bright-grey);
     width: calc(27 * var(--ui-unit));
     height: calc(27 * var(--ui-unit));
 }
 
 .selectedIcon {
-    color: var(--dark-white);
+    color: var(--light-white);
     width: calc(27 * var(--ui-unit));
     height: calc(27 * var(--ui-unit));
 }
 
 .pageName {
-    color: var(--light-grey);
+    color: var(--bright-grey);
     font-size: calc(18 * var(--ui-unit));
     font-weight: 600;
     margin: calc(5 * var(--ui-unit)) 0 0 0;
 }
 
 .selectedPageName {
-    color: var(--dark-white);
+    color: var(--light-white);
     font-size: calc(18 * var(--ui-unit));
     font-weight: 600;
     margin: calc(5 * var(--ui-unit)) 0 0 0;

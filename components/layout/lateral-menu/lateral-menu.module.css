@@ -17,7 +17,7 @@
          --menu-width: calc(400 * var(--ui-unit));
          width: var(--menu-width);
          max-width: 100%;
-         background-color: var(--medium-grey3);
+         background-color: var(--medium-grey);
          position: fixed;
          overflow-y: scroll;
          z-index: 1;
@@ -32,7 +32,7 @@
          --menu-width: calc(330 * var(--ui-unit));
          width: var(--menu-width);
          max-width: 100%;
-         background-color: var(--medium-grey3);
+         background-color: var(--medium-grey);
          position: fixed;
          overflow-y: scroll;
          z-index: 1;
@@ -55,7 +55,7 @@
         align-self: center;
         overflow: hidden;
         height: calc(42 * var(--ui-unit));
-        background-color: var(--medium-grey3);
+        background-color: var(--medium-grey);
         border: transparent;
         position: absolute;
         left: 4vw;
@@ -67,7 +67,7 @@
     }
 
     .menuIcon {
-        color: var(--dark-white);
+        color: var(--light-white);
         height: calc(26 * var(--ui-unit));
         width: calc(26 * var(--ui-unit));
     }
@@ -92,7 +92,7 @@
     }
 
     .menuIcon {
-        color: var(--dark-white);
+        color: var(--light-white);
         height: calc(32 * var(--ui-unit));
         width: calc(32 * var(--ui-unit));
         max-width: 100%;
@@ -115,13 +115,13 @@
     max-width: 100%;
     height: calc(90 * var(--ui-unit));
     border: none;
-    border-bottom: 1px solid var(--light-grey);
+    border-bottom: 1px solid var(--bright-grey);
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--bright-grey);
+    color: var(--dark-white);
     margin: 0;
     font-size: calc(22 * var(--ui-unit));
     letter-spacing: calc(2 * var(--ui-unit));
