@@ -3,8 +3,8 @@
 
 import styles from "./lateral-menu.module.css";
 import { useEffect, useRef } from "react";
-import useLockBodyScroll from "@/hooks/useLockBodyScroll"
-import useLockTransitions from "@/hooks/useLockTransitions";
+import { useLockBodyScroll } from "@/hooks/useLockBodyScroll"
+import { useLockTransitions } from "@/hooks/useLockTransitions";
 import LateralMenuItem from "@/components/layout/lateral-menu/LateralMenuItem";
 
 import { useRouter } from "next/navigation"
@@ -15,18 +15,18 @@ import { logoutAction } from "@/lib/actions/logout";
 type LateralMenuProps = {
   menuVisible: boolean;
   hide: () => void;
-  menuButtonRef : React.RefObject<null | HTMLButtonElement>
+  menuButtonRef: React.RefObject<null | HTMLButtonElement>
 }
 
 export default function LateralMenu({ menuVisible, hide, menuButtonRef }: LateralMenuProps) {
 
   // Accessibility : click on escape close the menu
   useEffect(() => {
-  if (!menuVisible) return;
-  const onKey = (e : KeyboardEvent) => { if (e.key === "Escape") hide(); };
-  document.addEventListener("keydown", onKey);
-  return () => document.removeEventListener("keydown", onKey);
-}, [menuVisible, hide]);
+    if (!menuVisible) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") hide(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuVisible, hide]);
 
 
 
@@ -50,7 +50,7 @@ export default function LateralMenu({ menuVisible, hide, menuButtonRef }: Latera
     try {
       const { hasToken } = await logoutAction()
       dispatch(logout(!!hasToken))
-    } 
+    }
     catch (err) {
       dispatch(logout(false))
     }

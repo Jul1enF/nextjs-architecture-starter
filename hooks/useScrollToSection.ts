@@ -48,7 +48,7 @@ const getParentsStatus = (element: HTMLElement, horizontal: boolean) => {
 }
 
 
-export default function useScrollToSection(selectedSectionName: string | undefined, horizontal: boolean, sectionsRef: React.RefObject<{ [key: string]: HTMLElement }>) {
+export const useScrollToSection = (selectedSectionName: string | undefined, horizontal: boolean, sectionsRef: React.RefObject<{ [key: string]: HTMLElement }>) => {
 
     useEffect(() => {
         if (!sectionsRef.current || !selectedSectionName || !sectionsRef.current[selectedSectionName]) return

@@ -2,21 +2,21 @@
 
 
 import styles from "./ConfirmationModal.module.css"
-import useLockBodyScroll from "@/hooks/useLockBodyScroll";
-import useLockTransitions from "@/hooks/useLockTransitions";
+import { useLockBodyScroll } from "@/hooks/useLockBodyScroll";
+import { useLockTransitions } from "@/hooks/useLockTransitions";
 import { useRef } from "react";
 
 type ConfirmationModalProps = {
-    visible : boolean;
+    visible: boolean;
     confirmationText: string;
-    warning? : { text? : string, success?: boolean};
+    warning?: { text?: string, success?: boolean };
     confirmationButtonText: string;
     cancelButtonText: string;
-    confirmationFunction: ()=>void;
-    closeModal: ()=>void;
+    confirmationFunction: () => void;
+    closeModal: () => void;
 }
 
-export default function ConfirmationModal({ visible, confirmationText, warning, confirmationButtonText, cancelButtonText, confirmationFunction, closeModal } : ConfirmationModalProps) {
+export default function ConfirmationModal({ visible, confirmationText, warning, confirmationButtonText, cancelButtonText, confirmationFunction, closeModal }: ConfirmationModalProps) {
 
     // Stop the scroll of the body of the page when scrolling in the menu
     useLockBodyScroll(visible);
@@ -32,7 +32,7 @@ export default function ConfirmationModal({ visible, confirmationText, warning, 
             <div className={visible ? styles.activeOverlay : styles.disabledOverlay} onClick={closeModal} ref={overlayRef} >
                 <div className={`largeCard ${visible ? styles.visibleModal : styles.hiddenModal}`} onClick={(e) => e.stopPropagation()} ref={modalRef} >
 
-                    <h3 className="regularText" style={{textAlign : "center"}}>
+                    <h3 className="regularText" style={{ textAlign: "center" }}>
                         {confirmationText}
                     </h3>
 

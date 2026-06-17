@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function useWindowDimensions() {
+export const useWindowDimensions = () => {
 
     // State to not render the dom while it hasn't been hydrated
     const [mounted, setMounted] = useState(false)

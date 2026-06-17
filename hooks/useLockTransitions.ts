@@ -5,7 +5,7 @@ type AnyHTMLElementRef = RefObject<HTMLElement | null>
 type Refs = AnyHTMLElementRef | AnyHTMLElementRef[] | Record<string, HTMLElement | null>
 
 
-export default function useLockTransitions(refs: Refs) {
+export const useLockTransitions = (refs: Refs) => {
 
     const timeout = useRef<NodeJS.Timeout>(undefined);
 

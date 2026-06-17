@@ -3,9 +3,9 @@
 import styles from "./horizontal-menu.module.css"
 import { useRef } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
-import useIsomorphicLayoutEffect from "@/hooks/useIsomorphicLayoutEffect"
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect"
 import { isLinkSelected } from "@/utils/isLinkSelected"
-import useLockTransitions from "@/hooks/useLockTransitions"
+import { useLockTransitions } from "@/hooks/useLockTransitions"
 
 
 
@@ -25,13 +25,13 @@ export default function UnderlineSlider() {
         if (!underline) return
 
         const underlineParent = underline.parentElement
-        
+
         if (!underlineParent) return
-        const nodeLinks : HTMLElement[] = Array.from(underlineParent.querySelectorAll('[data-hm-link]'))
+        const nodeLinks: HTMLElement[] = Array.from(underlineParent.querySelectorAll('[data-hm-link]'))
 
         // Search for a node link matching the current pathname
         const matchingNodeLink = nodeLinks.find(e =>
-            isLinkSelected({pathname, link : e.dataset.hmLink, redirectionLink})
+            isLinkSelected({ pathname, link: e.dataset.hmLink, redirectionLink })
         )
 
         if (!matchingNodeLink) {
