@@ -1,4 +1,4 @@
-
+import { Suspense } from "react";
 import Header from "@/components/layout/header/Header"
 import BottomTabBar from "@/components/layout/bottom-tab-bar/BottomTabBar";
 import HorizontalMenu from '@/components/layout/horizontal-menu/HorizontalMenu';
@@ -12,7 +12,9 @@ export default function AppLayoutWrapper({ children }: { children: React.ReactNo
                 <Header />
 
                 <nav aria-label="Navigation principale en paysage">
-                    <HorizontalMenu />
+                    <Suspense>
+                        <HorizontalMenu />
+                    </Suspense>
                 </nav>
 
             </header>
@@ -24,7 +26,9 @@ export default function AppLayoutWrapper({ children }: { children: React.ReactNo
 
 
             <nav aria-label="Navigation principale mobile / portrait">
-                <BottomTabBar />
+                <Suspense>
+                    <BottomTabBar />
+                </Suspense>
             </nav>
 
         </>

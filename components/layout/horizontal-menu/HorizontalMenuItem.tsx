@@ -1,22 +1,33 @@
 'use client'
 
-
 import styles from "./horizontal-menu.module.css"
-import { usePathname } from "next/navigation"
-import { pathnameMatchLink } from "@/utils/pathnameMatchLink"
-import { HorizontalMenuItemOptions } from "./HorizontalMenu"
+import { useAppSelector } from "@/store/hooks"
+import Link from "next/link"
+import { usePathname, useSearchParams } from "next/navigation"
+import { isLinkSelected } from "@/utils/isLinkSelected"
+import { TargetedPage } from "./HorizontalMenu"
 
+export default function HorizontalMenuItem({ name, needsAuth, link }: TargetedPage) {
+    const isConnected = useAppSelector(state => state.user.value.isConnected)
 
-export default function HorizontalMenuItem({ sectionName, link }: HorizontalMenuItemOptions) {
-     const pathname = usePathname()
+    const pathname = usePathname()
+    const redirectionLink = useSearchParams().get("redirectionLink")
 
-    const isSelected = pathnameMatchLink(pathname, link)
+    const isSelected = isLinkSelected({pathname, link, redirectionLink})
+
+    const resolvedLink = (needsAuth && !isConnected)
+        ? `/signin?${new URLSearchParams({ redirectionLink: link })}`
+        : link
 
     return (
-        <h3 className={`regularText regularTextPx ${styles.linkItem} ${!isSelected ? styles.unselectedLinkItem : ""}`} >
-
-            {sectionName}
-
-        </h3>
+        <Link
+            href={resolvedLink}
+            data-hm-link={link}
+            style={{ textDecoration: "none", height: "100%" }}
+        >
+            <h3 className={`regularText regularTextPx ${styles.linkItem} ${!isSelected ? styles.unselectedLinkItem : ""}`}>
+                {name}
+            </h3>
+        </Link>
     )
 }

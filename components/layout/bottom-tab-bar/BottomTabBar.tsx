@@ -3,33 +3,39 @@
 import styles from "./bottom-tab-bar.module.css"
 import BottomTabBarItem from "./BottomTabBarItem"
 import { useState, useEffect } from "react"
+import { FaUser } from "react-icons/fa6"
+import { LuCalendarPlus } from "react-icons/lu"
+import { AiFillHome } from "react-icons/ai";
 
+const TARGETED_PAGES = [
+    { Icon: AiFillHome, name: "Accueil", needsAuth: false, link : "/" },
+    { Icon: LuCalendarPlus, name: "Rendez-vous", needsAuth: false, link : "/appointment" },
+    { Icon: FaUser, name: "Mon compte", needsAuth: true,  link : "/user-profile" },
+    { Icon: FaUser, name: "Connexion", needsAuth: false,  link : "/login" },
+] as const
+
+export type TargetedPage = (typeof TARGETED_PAGES)[number]
 
 export default function BottomTabBar() {
 
     const [keyboardMounted, setKeyboardMounted] = useState(false)
 
     useEffect(() => {
-        const handleViewportResize = () => {
-            if (window.visualViewport && window.visualViewport.height < (window.innerHeight * 0.7)){
-                setKeyboardMounted(true)
-            }else{
-                setKeyboardMounted(false)
-            }
-        };
+        const vv = window.visualViewport
+        if (!vv) return
 
-        window.visualViewport && window.visualViewport.addEventListener("resize", handleViewportResize);
-        return () => {
-            window.visualViewport && window.visualViewport.removeEventListener("resize", handleViewportResize);
-        };
-    }, []);
+        const handleViewportResize = () => {
+            setKeyboardMounted(vv.height < window.innerHeight * 0.7)
+        }
+
+        vv.addEventListener("resize", handleViewportResize)
+        return () => vv.removeEventListener("resize", handleViewportResize)
+    }, [])
+
 
     return (
         <div className={styles.mainContainer} style={{ visibility: keyboardMounted ? "hidden" : "visible" }} data-fixed-footer="true">
-            <BottomTabBarItem targetedPage="/" />
-            <BottomTabBarItem targetedPage="/vods" />
-            <BottomTabBarItem targetedPage="/user-profile" />
-            <BottomTabBarItem targetedPage="/bookmarks" />
+            {TARGETED_PAGES.map(e => <BottomTabBarItem key={e.link} {...e} />)}
         </div>
     )
 }

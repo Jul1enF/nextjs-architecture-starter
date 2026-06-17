@@ -2,36 +2,32 @@
 
 import styles from "./bottom-tab-bar.module.css"
 import Link from 'next/link'
-import { pathnameMatchLink } from "@/utils/pathnameMatchLink"
-import { usePathname } from 'next/navigation'
-import { TbUserCircle } from "react-icons/tb"
-import { BsCameraVideo } from "react-icons/bs"
-import { MdOndemandVideo } from "react-icons/md"
-import { RiStarLine } from "react-icons/ri"
+import { useAppSelector } from "@/store/hooks"
+import { isLinkSelected } from "@/utils/isLinkSelected"
+import { usePathname, useSearchParams } from 'next/navigation'
 
-type TargetedPages = '/' | '/vods' | '/user-profile' | '/bookmarks'
+import { TargetedPage } from "./BottomTabBar"
 
-const PAGES = {
-    '/':             { Icon: BsCameraVideo,  name: "Direct" },
-    '/vods':         { Icon: MdOndemandVideo, name: "VOD" },
-    '/user-profile': { Icon: TbUserCircle,   name: "Mon Profil" },
-    '/bookmarks':    { Icon: RiStarLine,     name: "Favoris" },
-}
 
-export default function BottomTabBarItem({ targetedPage } : {targetedPage : TargetedPages}) {
+export default function BottomTabBarItem({Icon, name, needsAuth, link} : TargetedPage) {
+    const isConnected = useAppSelector((state)=>state.user.value.isConnected)
+
     const pathname = usePathname()
+    const redirectionLink = useSearchParams().get("redirectionLink")
 
-    const selected = pathnameMatchLink(pathname, targetedPage)
+    const isSelected = isLinkSelected({pathname, link, redirectionLink})
 
-    const { Icon, name } = PAGES[targetedPage]
+    const resolvedLink = (needsAuth && !isConnected) 
+    ? `/signin?${new URLSearchParams({redirectionLink : link})}` 
+    : link
 
     return (
         <Link
-            className={`${styles.itemContainer} ${selected ? styles.selectedItemBackground : ''}`}
-            href={targetedPage}
+            className={`${styles.itemContainer} ${isSelected ? styles.isSelectedItemBackground : ''}`}
+            href={resolvedLink}
         >
-            <Icon className={selected ? styles.selectedIcon : styles.icon} />
-            <p className={selected ? styles.selectedPageName : styles.pageName}>
+            <Icon className={isSelected ? styles.isSelectedIcon : styles.icon} />
+            <p className={isSelected ? styles.isSelectedPageName : styles.pageName} >
                 {name}
             </p>
         </Link>
