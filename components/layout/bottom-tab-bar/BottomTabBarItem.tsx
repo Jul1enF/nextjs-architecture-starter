@@ -23,11 +23,11 @@ export default function BottomTabBarItem({Icon, name, needsAuth, link} : Targete
 
     return (
         <Link
-            className={`${styles.itemContainer} ${isSelected ? styles.isSelectedItemBackground : ''}`}
+            className={styles.itemContainer}
             href={resolvedLink}
         >
-            <Icon className={isSelected ? styles.isSelectedIcon : styles.icon} />
-            <p className={isSelected ? styles.isSelectedPageName : styles.pageName} >
+            <Icon className={isSelected ? styles.selectedIcon : styles.icon} />
+            <p className={isSelected ? styles.selectedPageName : styles.pageName} >
                 {name}
             </p>
         </Link>

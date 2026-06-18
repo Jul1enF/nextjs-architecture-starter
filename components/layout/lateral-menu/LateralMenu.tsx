@@ -8,7 +8,7 @@ import { useLockTransitions } from "@/hooks/useLockTransitions";
 import LateralMenuItem from "@/components/layout/lateral-menu/LateralMenuItem";
 
 import { useRouter } from "next/navigation"
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store/hooks";
 import { logout } from "@/reducers/user";
 import { logoutAction } from "@/lib/actions/logout";
 
@@ -42,7 +42,7 @@ export default function LateralMenu({ menuVisible, hide, menuButtonRef }: Latera
 
   // Log out
   const router = useRouter()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const logoutUser = async () => {
     router.push("/")
@@ -60,7 +60,7 @@ export default function LateralMenu({ menuVisible, hide, menuButtonRef }: Latera
   // Sections of the menu 
   const sectionsArray = [
     { sectionName: "Accueil", link: "/" },
-    { sectionName: "Se déconnecter", func: logoutUser },
+    { sectionName: "Se déconnecter", func: logoutUser, link : "/" },
     { sectionName: "Favoris", link: "/bookmarks" },
   ]
 

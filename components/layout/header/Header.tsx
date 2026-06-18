@@ -9,7 +9,7 @@ export default function Header() {
         <div className={styles.mainContainer} data-fixed-header="true">
             <LateralMenuButton />
 
-            <Link href={'/'} style={{ textDecoration: "none"}} className={styles.headerTitleContainer}>
+            <Link href={'/'} className={styles.headerTitleContainer}>
                 <h1 className={styles.headerTitle}>
                     App Name
                 </h1>

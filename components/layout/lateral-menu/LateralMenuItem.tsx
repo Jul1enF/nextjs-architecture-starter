@@ -1,31 +1,25 @@
 'use client'
 
 import styles from "./lateral-menu.module.css";
-import { useRouter } from 'next/navigation'
+import Link from "next/link";
 
 type LateralMenuItemProps = {
-  sectionName : string;
-  link? : string;
-  func? : () => void;
-  hide : () => void;
+  sectionName: string;
+  link: string;
+  func?: () => void;
+  hide: () => void;
 }
 
-export default function LateralMenuItem({ sectionName, link, func, hide } : LateralMenuItemProps) {
-  const router = useRouter();
+export default function LateralMenuItem({ sectionName, link, func, hide }: LateralMenuItemProps) {
 
-  const sectionClick = () => {
-    if (typeof func === "function") {
-      func();
-      link && router.push(`${link}`);
-    } else {
-      router.push(`${link}`);
-    }
+  const handleClick = () => {
+    func?.();
     hide();
   };
 
   return (
-    <button className={styles.itemButton} type="button" onClick={sectionClick} >
+    <Link href={link} className={styles.itemButton} onClick={handleClick}>
       {sectionName}
-    </button>
+    </Link>
   );
 }

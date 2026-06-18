@@ -23,7 +23,7 @@ export default function HorizontalMenuItem({ name, needsAuth, link }: TargetedPa
         <Link
             href={resolvedLink}
             data-hm-link={link}
-            style={{ textDecoration: "none", height: "100%" }}
+            style={{ height: "100%" }}
         >
             <h3 className={`regularText regularTextPx ${styles.linkItem} ${!isSelected ? styles.unselectedLinkItem : ""}`}>
                 {name}
