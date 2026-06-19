@@ -14,11 +14,11 @@
    ============================================================ */
 
 .pageContent {
-    background-color: var(--bright-grey);
+    background-color: var(--medium-white);
     width: 100vw;
     max-width: 100vw;
     min-height: 100dvh;
-    padding-top: calc(var(--headers-height) + var(--large-margin-top));
+    padding-top: calc(var(--headers-height) + var(--very-large-margin-top));
     padding-bottom: var(--page-padding-bottom);
     display: flex;
     flex-direction: column;
@@ -61,6 +61,12 @@
     padding: var(--large-vertical-padding) var(--regular-horizontal-padding);
 }
 
+.inputAndIconContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
 .inputWithIcon {
     width: 85%;
     max-width: 85%;
@@ -71,6 +77,19 @@
     margin: 0;
 }
 
+.inputIconContainer {
+    position: absolute;
+    right: var(--regular-horizontal-padding);
+    width: 15%;
+    max-width: 15%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: transparent;
+    border: none;
+}
+
 .card {
     max-width: 100%;
     padding: var(--card-padding);
@@ -79,7 +98,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--dark-grey);
+    background-color: var(--strong-grey);
 }
 
 .largeCard {
@@ -91,7 +110,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--dark-grey);
+    background-color: var(--strong-grey);
+}
+
+
+.desktopLargeItemWidth {
+    width: var(--large-item-width);
+}
+
+.smallIcon {
+    color: var(--bright-grey);
+    width: calc(20 * var(--ui-unit));
+    height: calc(20 * var(--ui-unit));
+}
+
+.line {
+    background-color: var(--dark-white);
+    min-height: 1px
 }
 
 .noTransition {
@@ -125,9 +160,9 @@
    BORDER & BACKGROUND STYLES - ALL SCREENS
    ============================================================ */
 
-.strongGreyBorder {
+.lightGreyBorder {
     background-color: transparent;
-    border: 2px solid var(--strong-grey);
+    border: 2px solid var(--light-grey);
 }
 
 .strongRedBg {
@@ -169,10 +204,9 @@
 
     --regular-margin-top: calc(15 * var(--ui-unit));
     --medium-margin-top: calc(25 * var(--ui-unit));
-
-    /* page padding top : */
     --large-margin-top: calc(30 * var(--ui-unit));
 
+    /* page padding top : */
     --very-large-margin-top: calc(45 * var(--ui-unit));
 
 
@@ -181,23 +215,6 @@
 
     --large-card-width: var(--large-item-width);
     --large-card-padding: calc(30 * var(--ui-unit)) var(--card-horizontal-padding) calc(45 * var(--ui-unit));
-}
-
-/* Components classes */
-
-.desktopLargeItemWidth {
-    width: var(--large-item-width);
-}
-
-.smallIcon {
-    color: var(--bright-grey);
-    width: calc(20 * var(--ui-unit));
-    height: calc(20 * var(--ui-unit));
-}
-
-.line {
-    background-color: var(--dark-white);
-    min-height: 1px
 }
 
 

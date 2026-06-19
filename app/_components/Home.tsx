@@ -14,13 +14,13 @@ export default function Home() {
 
   return (
     <div className="pageContent">
-      <h2 className="pageTitle">
+      <h1 className="pageTitle">
         Welcome home !!!
-      </h2>
+      </h1>
 
-      <h3 className="pageSubtitle mt-medium">
+      <h2 className="pageSubtitle mt-medium">
         Hello !!!
-      </h3>
+      </h2>
 
       <button type="button" className='regularItem strongRedBg regularText mt-large' onClick={() => setModalVisible(true)}>
         Confirmation

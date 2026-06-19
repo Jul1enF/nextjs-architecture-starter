@@ -10,9 +10,9 @@ export default function Header() {
             <LateralMenuButton />
 
             <Link href={'/'} className={styles.headerTitleContainer}>
-                <h1 className={styles.headerTitle}>
+                <span className={styles.headerTitle}>
                     App Name
-                </h1>
+                </span>
             </Link>
 
         </div>

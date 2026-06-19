@@ -1,52 +1,9 @@
-'use client'
-
 import { Dispatch, SetStateAction, RefObject } from "react"
 import { GenericFetchAction, CustomHeaders, GenericFetchOptions } from "@/app-types/fetch-actions.types"
-import { hasId } from "./typeGuards"
 
-// Function to count the number of docs (arrays or objects) owned by stored data
-// Same way of counting than in sendIfUpdated middleware in the back end
-const getDocsCount = (storedData: unknown) => {
+import { getDocsCount } from "./getDocsCount"
 
-    // Deserialize data if they have been serialized (by redux)
-    const deserializedData: unknown = JSON.parse(JSON.stringify(storedData))
-
-    let docsCount = 0
-    const visitedDocs = new WeakSet<object>()
-
-    const extractDocsCount = (doc: unknown) => {
-        if (!doc || typeof doc !== "object" || visitedDocs.has(doc)) return
-        visitedDocs.add(doc)
-
-        // Add a doc to the count
-        if (hasId(doc)) docsCount += 1
-
-        if (Array.isArray(doc)) {
-            doc.forEach(e => extractDocsCount(e))
-        }
-        else {
-            // Searching inside an object for other docs
-            const recordDoc = doc as Record<string, unknown>
-
-            for (const key in recordDoc) {
-                const val = recordDoc[key];
-
-                // If it is an array
-                if (Array.isArray(val) && val.length) {
-                    val.forEach(e => extractDocsCount(e))
-                }
-                // If it is an object
-                else if (val && typeof val === "object") {
-                    extractDocsCount(val);
-                }
-            }
-        }
-    }
-
-    extractDocsCount(deserializedData)
-
-    return docsCount
-}
+const DEFAULT_WARNING = {text: "", success: false}
 
 
 // TYPES
@@ -59,11 +16,11 @@ type RequestProps = {
     sendToken?: boolean;
     setSessionExpired?: Dispatch<SetStateAction<boolean>>;
     functionRef?: RefObject<boolean>;
-    setWarning?: Dispatch<SetStateAction<{ text?: string, success?: boolean }>>;
+    setWarning?: Dispatch<SetStateAction<{ text: string, success: boolean }>>;
     setModalVisible?: Dispatch<SetStateAction<boolean>>;
     setUploading?: Dispatch<SetStateAction<boolean>>;
     clearEtag?: boolean;
-    storedData: unknown;
+    storedData?: unknown;
 }
 
 type ApiBaseResponse = {
@@ -108,20 +65,22 @@ export default async function handleRequest<SpecificApiData = unknown>
         functionRef.current = false;
     }
     try {
-        warning && setWarning({})
+        warning && setWarning(DEFAULT_WARNING)
         uploading && setUploading(true)
 
 
-        // Headers
+        // HEADERS
         const headers: CustomHeaders = {};
 
         if (clearEtag) headers["If-None-Match"] = ""
         if ("storedData" in requestProps) headers["X-Docs-Count"] = getDocsCount(storedData).toString()
 
-        // Options
+
+        // OPTIONS
         const options: GenericFetchOptions = { method, headers };
 
-        // Body
+
+        // BODY
         if (body) {
             if (body instanceof FormData) {
                 options.body = body;
@@ -131,15 +90,19 @@ export default async function handleRequest<SpecificApiData = unknown>
             }
         }
 
-        // Params
+
+        // PARAMS
         const urlParams = params
             ? "/" + (Array.isArray(params) ? params.join("/") : params)
             : "";
 
 
-        // Fetch
+
+        // FETCH
         const data = await requestFunction({sendToken, path, urlParams, options}) as ApiResponse<SpecificApiData>
 
+
+        // RESPONSE HANDLING
         if (!data.result) {
             displayWarning(data.errorText)
             sessionExpired = data.sessionExpired ?? false
@@ -168,7 +131,7 @@ export default async function handleRequest<SpecificApiData = unknown>
 
         if (modal || warningText) setTimeout(() => {
             modal && setModalVisible(false)
-            warningText && setWarning?.({})
+            warningText && setWarning?.(DEFAULT_WARNING)
         }, readingTime(warningText))
 
         if (session && sessionExpired) {

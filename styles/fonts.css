@@ -67,6 +67,7 @@
       font-size: var(--regular-font-size);
       margin: var(--regular-margin-top) 0 0 0;
       line-height: 1.05em;
+      text-align: center;
   }
 
   .fontColorBrightBg {
