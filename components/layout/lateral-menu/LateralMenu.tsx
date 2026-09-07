@@ -7,7 +7,6 @@ import { useLockBodyScroll } from "@/hooks/useLockBodyScroll"
 import { useLockTransitions } from "@/hooks/useLockTransitions";
 import LateralMenuItem from "@/components/layout/lateral-menu/LateralMenuItem";
 
-import { useRouter } from "next/navigation"
 import { useAppDispatch } from "@/store/hooks";
 import { logout } from "@/reducers/user";
 import { logoutAction } from "@/lib/actions/logout";
@@ -41,12 +40,9 @@ export default function LateralMenu({ menuVisible, hide, menuButtonRef }: Latera
 
 
   // Log out
-  const router = useRouter()
   const dispatch = useAppDispatch()
 
   const logoutUser = async () => {
-    router.push("/")
-
     try {
       const { hasToken } = await logoutAction()
       dispatch(logout(!!hasToken))

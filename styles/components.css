@@ -3,9 +3,8 @@
    ============================================================ */
 
 :root {
-    --regular-card-width: calc(var(--regular-item-width) + var(--card-horizontal-padding) * 2);
-    --headers-height: calc(var(--header-height) + var(--horiz-menu-height, 0px));
     --free-height: calc(100dvh - calc(var(--headers-height) + var(--tab-bar-height, 0px)));
+    --page-bg-color: var(--medium-white);
 }
 
 
@@ -14,7 +13,7 @@
    ============================================================ */
 
 .pageContent {
-    background-color: var(--medium-white);
+    background-color: var(--page-bg-color);
     width: 100vw;
     max-width: 100vw;
     min-height: 100dvh;
@@ -25,22 +24,13 @@
     align-items: center;
 }
 
-.regularItem {
-    width: var(--regular-item-width);
+.smallItem {
+    width: var(--small-item-width);
     max-width: 100%;
     border-radius: var(--regular-border-radius);
-    min-height: var(--regular-item-height);
+    min-height: var(--small-item-height);
     margin-top: var(--regular-margin-top);
-    padding: var(--regular-vertical-padding) var(--regular-horizontal-padding);
-}
-
-.mediumItem {
-    width: var(--medium-item-width);
-    max-width: 100%;
-    min-height: var(--medium-item-height);
-    border-radius: var(--regular-border-radius);
-    padding: var(--medium-vertical-padding) var(--regular-horizontal-padding);
-    margin-top: var(--regular-margin-top);
+    padding: var(--small-vertical-padding) var(--regular-horizontal-padding);
 }
 
 .largeItem {
@@ -52,13 +42,23 @@
     margin-top: var(--regular-margin-top);
 }
 
+
+/* Same value for mediumCardItem and largeCardItem so it's stays the same on portrait cellphones (not possible to be larger) */
+/* Override below for landscape or larger screen */
+
+.mediumCardItem,
 .largeCardItem {
     width: 100%;
     max-width: 100%;
     min-height: var(--large-item-height);
     border-radius: var(--regular-border-radius);
-    margin-top: var(--regular-margin-top);
+    margin-top: var(--medium-margin-top);
     padding: var(--large-vertical-padding) var(--regular-horizontal-padding);
+}
+
+.itemMediumHeight {
+    min-height: var(--medium-item-height);
+    padding: var(--medium-vertical-padding) var(--regular-horizontal-padding);
 }
 
 .inputAndIconContainer {
@@ -90,43 +90,44 @@
     border: none;
 }
 
-.card {
-    max-width: 100%;
-    padding: var(--card-padding);
+.smallCard {
+    width: var(--small-card-width);
+    max-width: var(--small-card-width);
+    padding: var(--small-card-padding);
     border-radius: var(--regular-border-radius);
     margin-top: var(--medium-margin-top);
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--strong-grey);
+    background-color: var(--blue-black);
 }
 
+
+/* Same value for mediumCard and largeCard so it's stays the same on portrait cellphones (not possible to be larger) */
+/* Override below for landscape or larger screen */
+
+.mediumCard,
 .largeCard {
-    padding: var(--large-card-padding);
-    width: var(--large-card-width);
+    padding: var(--medium-card-padding);
+    width: var(--medium-card-width);
     max-width: 100%;
     border-radius: var(--regular-border-radius);
     margin-top: var(--large-margin-top);
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--strong-grey);
-}
-
-
-.desktopLargeItemWidth {
-    width: var(--large-item-width);
+    background-color: var(--blue-black);
 }
 
 .smallIcon {
     color: var(--bright-grey);
-    width: calc(20 * var(--ui-unit));
-    height: calc(20 * var(--ui-unit));
+    width: calc(24 * var(--ui-unit));
+    height: calc(24 * var(--ui-unit));
 }
 
 .line {
     background-color: var(--dark-white);
-    min-height: 1px
+    min-height: 1px;
 }
 
 .noTransition {
@@ -134,9 +135,181 @@
 }
 
 
+
+
+/* ============================================================
+   BORDER & BACKGROUND STYLES - ALL SCREENS
+   ============================================================ */
+
+.brightGreyBorder {
+    background-color: transparent;
+    border: 1.5px solid var(--bright-grey);
+}
+
+.brightGreyBorder:focus-within {
+    outline: 2px solid var(--dark-white);
+    outline-offset: -2px;
+}
+
+.brightRedBg {
+    background-color: var(--bright-red);
+    border: none;
+}
+
+.darkGreyBg {
+    background-color: var(--dark-grey);
+    border: none;
+}
+
+
+
+/* ===============================================
+   VARIABLES - ALL SCREENS
+   =============================================== */
+
+/* Main sizes of the components */
+:root {
+    --header-height: min(calc(80 * var(--ui-unit)), 20dvh);
+    --horiz-menu-height: calc(45 * var(--ui-unit));
+
+    --regular-border-radius: calc(10 * var(--ui-unit));
+    --regular-horizontal-padding: calc(10 * var(--ui-unit));
+
+    --small-vertical-padding: calc(8 * var(--ui-unit));
+    --small-item-width: calc(280 * var(--ui-unit));
+    --small-item-height: calc(40 * var(--ui-unit));
+
+
+    --medium-vertical-padding: calc(11 * var(--ui-unit));
+    --medium-item-height: calc(45 * var(--ui-unit));
+
+
+    --large-vertical-padding: calc(13 * var(--ui-unit));
+    --large-item-width: calc(380 * var(--ui-unit));
+    --large-item-height: calc(52 * var(--ui-unit));
+
+
+    --small-margin-top: calc(5 * var(--ui-unit));
+    --regular-margin-top: calc(15 * var(--ui-unit));
+    --medium-margin-top: calc(25 * var(--ui-unit));
+    --large-margin-top: calc(30 * var(--ui-unit));
+
+    /* page padding top : */
+    --very-large-margin-top: calc(45 * var(--ui-unit));
+
+
+    --card-horizontal-padding: calc(20 * var(--ui-unit));
+
+
+    --small-card-padding: calc(30 * var(--ui-unit)) var(--card-horizontal-padding) calc(35 * var(--ui-unit));
+    --small-card-width: calc(var(--small-item-width) + calc(2 * var(--card-horizontal-padding)));
+
+
+    --medium-card-padding: calc(30 * var(--ui-unit)) var(--card-horizontal-padding) calc(40 * var(--ui-unit));
+}
+
+
+/* ==============================================
+   RESPONSIVE VARIABLES AND CLASSES : LANDSCAPE
+   ============================================== */
+
+@media (orientation: landscape) {
+    :root {
+        --headers-height: calc(var(--header-height) + var(--horiz-menu-height, 0px));
+        --page-padding-bottom: calc(50 * var(--ui-unit));
+    }
+
+}
+
+
+/* ==============================================
+   RESPONSIVE VARIABLES AND CLASSES : PORTRAIT
+   ============================================== */
+
+@media (orientation: portrait) {
+    :root {
+        --headers-height: var(--header-height);
+        --tab-bar-height: calc(calc(80 * var(--ui-unit)) + env(safe-area-inset-bottom, 0px));
+        --page-padding-bottom: calc(var(--tab-bar-height) + calc(50 * var(--ui-unit)));
+    }
+}
+
+
+/* ===========================================================================
+   RESPONSIVE VARIABLES AND CLASSES : ALL SCREENS EXCEPT PHONES IN PORTRAIT
+   =========================================================================== */
+
+@media not ((orientation: portrait) and (max-width: 580px)) {
+    :root {
+        --medium-card-width: calc(460 * var(--ui-unit));
+    }
+
+    .wideScreenLargeItemWidth {
+        width: var(--large-item-width);
+    }
+
+    .largeCardGroup {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: var(--small-margin-top) 0 var(--regular-margin-top);
+    }
+
+    /* OVERRIDES */
+    .largeCardItem {
+        width: 48%;
+        max-width: 48%;
+        margin-top: var(--large-margin-top);
+    }
+
+    .largeCard {
+        width: min(calc(900 * var(--ui-unit)), 92%);
+        max-width: 100%;
+    }
+}
+
+
+/* ===========================================================================
+   RESPONSIVE VARIABLES AND CLASSES : PHONES IN PORTRAIT
+   =========================================================================== */
+
+@media (orientation: portrait) and (max-width: 579.88px) {
+    :root {
+        --medium-card-width: var(--large-item-width);
+    }
+
+    .largeCardGroup {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* OVERRIDES */
+    .mediumCardItem {
+        margin-top: var(--regular-margin-top);
+    }
+}
+
+
+
+
+
+
 /* ============================================================
    MARGIN UTILITY CLASSES - ALL SCREENS
    ============================================================ */
+
+.mt-none {
+    margin-top: 0px;
+}
+
+.mt-small {
+    margin-top: var(--small-margin-top);
+}
 
 .mt-regular {
     margin-top: var(--regular-margin-top);
@@ -150,96 +323,6 @@
     margin-top: var(--large-margin-top);
 }
 
-.mt-vlarge {
+.mt-very-large {
     margin-top: var(--very-large-margin-top);
-}
-
-
-
-/* ============================================================
-   BORDER & BACKGROUND STYLES - ALL SCREENS
-   ============================================================ */
-
-.lightGreyBorder {
-    background-color: transparent;
-    border: 2px solid var(--light-grey);
-}
-
-.strongRedBg {
-    background-color: var(--bright-red);
-    border: none;
-}
-
-.darkGreyBg {
-    background-color: var(--dark-grey);
-    border: none;
-}
-
-
-
-/* ===============================================
-   RESPONSIVE VARIABLES AND CLASSES - ALL SCREENS
-   =============================================== */
-
-/* Main sizes of the components */
-:root {
-    --header-height: min(calc(80 * var(--ui-unit)), 20dvh);
-
-    --regular-border-radius: calc(10 * var(--ui-unit));
-    --regular-horizontal-padding: calc(10 * var(--ui-unit));
-    --regular-vertical-padding: calc(8 * var(--ui-unit));
-    --regular-item-width: calc(280 * var(--ui-unit));
-    --regular-item-height: calc(40 * var(--ui-unit));
-
-
-    --medium-vertical-padding: calc(11 * var(--ui-unit));
-    --medium-item-width: calc(340 * var(--ui-unit));
-    --medium-item-height: calc(45 * var(--ui-unit));
-
-
-    --large-vertical-padding: calc(13.5 * var(--ui-unit));
-    --large-item-width: calc(380 * var(--ui-unit));
-    --large-item-height: calc(50 * var(--ui-unit));
-
-
-    --regular-margin-top: calc(15 * var(--ui-unit));
-    --medium-margin-top: calc(25 * var(--ui-unit));
-    --large-margin-top: calc(30 * var(--ui-unit));
-
-    /* page padding top : */
-    --very-large-margin-top: calc(45 * var(--ui-unit));
-
-
-    --card-horizontal-padding: calc(20 * var(--ui-unit));
-    --card-padding: calc(30 * var(--ui-unit)) var(--card-horizontal-padding) calc(35 * var(--ui-unit));
-
-    --large-card-width: var(--large-item-width);
-    --large-card-padding: calc(30 * var(--ui-unit)) var(--card-horizontal-padding) calc(45 * var(--ui-unit));
-}
-
-
-/* ==============================================
-   RESPONSIVE VARIABLES AND CLASSES : LANDSCAPE
-   ============================================== */
-
-@media (orientation: landscape) {
-    :root {
-        --horiz-menu-height: calc(45 * var(--ui-unit));
-        --page-padding-bottom: calc(50 * var(--ui-unit));
-
-        /* OVERRIDE */
-        --large-card-width: calc(525 * var(--ui-unit));
-    }
-}
-
-
-/* ==============================================
-   RESPONSIVE VARIABLES AND CLASSES : PORTRAIT
-   ============================================== */
-
-@media (orientation: portrait) {
-    :root {
-        --tab-bar-height: min(calc(86 * var(--ui-unit)), 20lvh);
-        --page-padding-bottom: calc(var(--tab-bar-height) + calc(50 * var(--ui-unit)));
-    }
 }

@@ -18,6 +18,7 @@
       font-size: 2rem;
       letter-spacing: 0.066em;
       font-weight: 500;
+      text-align: center;
   }
 
   .pageSubtitle {
@@ -25,7 +26,9 @@
       margin: 0;
       font-size: 1.45rem;
       letter-spacing: 0.07em;
+      line-height: 1.4em;
       font-weight: 400;
+      text-align: center;
   }
 
   .labelText {
@@ -34,6 +37,7 @@
       font-weight: 600;
       letter-spacing: 0.09em;
       margin: 0;
+      text-align: center;
   }
 
   .largeText {
@@ -42,6 +46,7 @@
       font-weight: 400;
       letter-spacing: 0.07em;
       margin: 0;
+      text-align: center;
   }
 
   .regularText {
@@ -51,6 +56,7 @@
       margin: 0;
       letter-spacing: 0.055em;
       line-height: 1.3em;
+      text-align: center;
   }
 
   .smallText {
@@ -59,6 +65,7 @@
       font-weight: 400;
       margin: 0;
       line-height: 1em;
+      text-align: center;
   }
 
   .warning {
@@ -77,6 +84,24 @@
   /* .fontColorDarkBg {
     color: var(--light-white);
   } */
+
+
+
+
+  /* TEXT ALIGN OVERRIDE FOR INPUTS AND TEXT AREA */
+
+  input.regularText,
+  textarea.regularText,
+  input.largeText,
+  textarea.largeText,
+  input.labelText,
+  textarea.labelText {
+      text-align: left;
+  }
+
+
+
+
 
 
   /* EXCEPT FOR VERY LARGE SCREENS, FIXED FONT SIZES IN UI UNIT (PX) INSTEAD OF REM TO PREVENT SCALING */

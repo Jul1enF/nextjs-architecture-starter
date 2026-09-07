@@ -1,4 +1,4 @@
-import { useEffect, useRef, RefObject } from "react";
+import { useEffect, useState, useRef, RefObject } from "react";
 
 // TYPES
 type AnyHTMLElementRef = RefObject<HTMLElement | null>
@@ -6,6 +6,12 @@ type Refs = AnyHTMLElementRef | AnyHTMLElementRef[] | Record<string, HTMLElement
 
 
 export const useLockTransitions = (refs: Refs) => {
+
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(()=>{
+        setMounted(true)
+    },[])
 
     const timeout = useRef<NodeJS.Timeout>(undefined);
 
@@ -34,5 +40,5 @@ export const useLockTransitions = (refs: Refs) => {
             window.removeEventListener("resize", freezeTransitions);
             clearTimeout(timeout.current);
         };
-    }, [refs]);
+    }, [refs, mounted]);
 }

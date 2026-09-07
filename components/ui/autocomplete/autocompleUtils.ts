@@ -1,21 +1,7 @@
 import { hasId } from "@/utils/typeGuards"
 import { FindSelectItemTitleOptions } from "./Autocomplete.types"
+import { getStringValue } from "@/utils/unknownObjectUtils"
 
-export const getStringValue = (item: unknown, key: string) => {
-    if (typeof item !== "object" || item === null) return undefined;
-
-    const value = (item as Record<string, unknown>)[key];
-
-    return typeof value === "string" ? value : undefined;
-};
-
-export const getKeyValue = (item: unknown, key: string) => {
-    if (typeof item !== "object" || item === null) return undefined;
-
-    const value = (item as Record<string, unknown>)[key];
-
-    return value;
-};
 
 const isPrimitive = (v: unknown): v is null | string | number | boolean =>
     v === null ||

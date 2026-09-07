@@ -2,7 +2,8 @@
 
 import styles from "./bottom-tab-bar.module.css"
 import BottomTabBarItem from "./BottomTabBarItem"
-import { useState, useEffect, Suspense } from "react"
+import { Suspense } from "react"
+import { useKeyboardMounted } from "../../../hooks/useKeyboardMounted"
 import { FaUser } from "react-icons/fa6"
 import { LuCalendarPlus } from "react-icons/lu"
 import { AiFillHome } from "react-icons/ai";
@@ -18,20 +19,7 @@ export type TargetedPage = (typeof TARGETED_PAGES)[number]
 
 export default function BottomTabBar() {
 
-    const [keyboardMounted, setKeyboardMounted] = useState(false)
-
-    useEffect(() => {
-        const vv = window.visualViewport
-        if (!vv) return
-
-        const handleViewportResize = () => {
-            setKeyboardMounted(vv.height < window.innerHeight * 0.7)
-        }
-
-        vv.addEventListener("resize", handleViewportResize)
-        return () => vv.removeEventListener("resize", handleViewportResize)
-    }, [])
-
+    const keyboardMounted = useKeyboardMounted()
 
     return (
         <div className={styles.mainContainer} style={{ visibility: keyboardMounted ? "hidden" : "visible" }} data-fixed-footer="true">

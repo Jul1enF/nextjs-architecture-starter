@@ -39,8 +39,7 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         login: (state: UserState, action: PayloadAction<User>) => {
-            state.value = action.payload
-            state.value.hasToken = true
+            state.value = {...action.payload, hasToken : true, isConnected : true}
         },
         logout: (state: UserState, action: PayloadAction<boolean | undefined>) => {
             state.value = { ...initialState.value }

@@ -1,0 +1,175 @@
+/* CATEGORIES MENU */
+
+.mainContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    background-color: var(--background-color);
+    position: sticky;
+    top: var(--headers-height);
+    min-height: var(--horiz-menu-height);
+    max-height: 20dvh;
+    --background-color: var(--bright-blue);
+    --arrow-width: calc(35 * var(--ui-unit));
+    --fade-width: calc(40 * var(--ui-unit));
+}
+
+.mainContainer>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    min-width: 0;
+    min-height: 100%;
+    max-height: 100%;
+    overflow-x: auto;
+    column-gap: calc(15 * var(--ui-unit));
+    padding: 0;
+    scrollbar-width: none;
+    overscroll-behavior-x: none;
+    position: relative;
+}
+
+.arrowButton {
+    border: none;
+    background-color: var(--background-color);
+    min-height: var(--horiz-menu-height);
+    min-width: var(--arrow-width);
+    max-width: var(--arrow-width);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow {
+    width: var(--arrow-width);
+    height: 100%;
+}
+
+.disabledArrow {
+    opacity: 0.3;
+    cursor: auto;
+}
+
+
+/* Portrait Override */
+@media (orientation: portrait) {
+    /* Change of the background color because there is no horizontal menu on phones */
+    .mainContainer {
+        --background-color: var(--light-blue);
+    }
+}
+
+
+/* Tablets and mobiles override */
+@media not ((hover: hover) and (pointer: fine)) {
+    .mainContainer {
+        padding: 0 calc(10 * var(--ui-unit));
+    }
+
+    .arrowButton {
+        display: none;
+    }
+}
+
+
+/* Desktop Override */
+@media (hover: hover) and (pointer: fine) {
+    .fadeIn {
+        -webkit-mask-image: linear-gradient(to right,
+                rgba(0, 0, 0, 0.15) 0,
+                black var(--fade-width),
+                black 100%);
+        mask-image: linear-gradient(to right,
+                rgba(0, 0, 0, 0.15) 0,
+                black var(--fade-width),
+                black 100%);
+    }
+
+    .fadeOut {
+        -webkit-mask-image: linear-gradient(to right,
+                black 0,
+                black calc(100% - var(--fade-width)),
+                rgba(0, 0, 0, 0.15) 100%);
+        mask-image: linear-gradient(to right,
+                black 0,
+                black calc(100% - var(--fade-width)),
+                rgba(0, 0, 0, 0.15) 100%);
+    }
+
+    .fadeInAndOut {
+        -webkit-mask-image: linear-gradient(to right,
+                rgba(0, 0, 0, 0.15) 0,
+                black var(--fade-width),
+                black calc(100% - var(--fade-width)),
+                rgba(0, 0, 0, 0.15) 100%);
+        mask-image: linear-gradient(to right,
+                rgba(0, 0, 0, 0.15) 0,
+                black var(--fade-width),
+                black calc(100% - var(--fade-width)),
+                rgba(0, 0, 0, 0.15) 100%);
+    }
+}
+
+
+
+/* CATEGORIES MENU ITEM */
+
+.itemButton {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    min-height: var(--horiz-menu-height);
+    white-space: nowrap;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.title {
+    color: var(--bright-white)
+}
+
+
+
+
+/* HIGHT LIGHT CONTAINER */
+
+
+.highLightContainer {
+    min-height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: transform 0.4s,
+        width 0.4s;
+}
+
+
+/* HIGHLIGHTED */
+
+.highLighted>div,
+.highLighted>span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(6 * var(--ui-unit));
+    background: var(--dark-blue);
+    opacity: 1;
+}
+
+.highLighted>span {
+    opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .highLighted:hover>span {
+        opacity: 0.65;
+    }
+
+    .highLighted:hover {
+        opacity: 0.85;
+    }
+}

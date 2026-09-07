@@ -30,7 +30,7 @@ export default function ConfirmationModal({ visible, confirmationText, warning, 
     return (
         <>
             <div className={visible ? styles.activeOverlay : styles.disabledOverlay} onClick={closeModal} ref={overlayRef} >
-                <div className={`largeCard ${visible ? styles.visibleModal : styles.hiddenModal}`} onClick={(e) => e.stopPropagation()} ref={modalRef} >
+                <div className={`smallCard ${styles.modal} ${visible ? styles.visibleModal : styles.hiddenModal}`} onClick={(e) => e.stopPropagation()} ref={modalRef} >
 
                     <h3 className="regularText" style={{ textAlign: "center" }}>
                         {confirmationText}
@@ -38,9 +38,9 @@ export default function ConfirmationModal({ visible, confirmationText, warning, 
 
                     <div className={`line ${styles.thisLine}`} />
 
-                    <button type="button" className="regularItem strongRedBg regularText" onClick={closeModal}>{cancelButtonText}</button>
+                    <button type="button" aria-label={cancelButtonText} className="smallItem brightRedBg regularText" onClick={closeModal}>{cancelButtonText}</button>
 
-                    <button type="button" className="regularItem strongRedBg regularText" onClick={confirmationFunction}>{confirmationButtonText}</button>
+                    <button type="button" aria-label={confirmationButtonText} className="smallItem brightRedBg regularText" onClick={confirmationFunction}>{confirmationButtonText}</button>
 
                     <p className={`warning ${warning?.success ? "success" : "error"}`} style={!warning?.text ? { height: 0, marginTop: 0 } : {}}>
                         {warning?.text}

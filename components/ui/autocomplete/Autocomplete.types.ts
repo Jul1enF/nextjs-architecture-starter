@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, CSSProperties } from "react";
+import { RefObject, Dispatch, SetStateAction, CSSProperties } from "react";
 
 // ITEM TYPE
 
@@ -12,31 +12,54 @@ type AutocompleteObjectItem = {
 export type AutocompleteItem = string | AutocompleteObjectItem
 
 
-    // AUTOCOMPLETE
+// AUTOCOMPLETE
 
-    export type AutocompleteProps<SelectedItemType = unknown> = {
-        data: AutocompleteItem[];
-        setSelectedItem: Dispatch<SetStateAction<SelectedItemType | null>>;
-        selectedItem: SelectedItemType | null;
-        valueKey?: string;
-        titleKey?: string;
-        placeholderText?: string;
-        placeholderColor?: CSSProperties["color"];
-        emptyResultText?: string;
-        marginTopClass?: string;
-        inputStyle?: CSSProperties;
-        itemClass?: string;
-        appearanceClass?: string;
-        dropdownContainerStyle?: CSSProperties;
-        dropdownTextClass?: string;
-        dropdownLineColor?: CSSProperties["color"];
-        boldTitleWeight?: CSSProperties["fontWeight"];
-        iconColor?: CSSProperties["color"];
-        canCreate?: "object" | "string";
-        readOnly?: boolean;
-        showClear?: boolean;
-        autoCapitalize?: string;
-    }
+export type AutocompleteProps<SelectedItemType = unknown> = {
+    data: AutocompleteItem[];
+    setSelectedItem: Dispatch<SetStateAction<SelectedItemType>>;
+    selectedItem: SelectedItemType;
+    valueKey?: string;
+    titleKey?: string;
+    placeholderText?: string;
+    placeholderColor?: CSSProperties["color"];
+    emptyResultText?: string;
+    marginTopClassName?: string;
+    inputAppearanceClassName?: string;
+    inputStyle?: CSSProperties;
+    inputTextClassName?: string;
+    inputTextStyle?: CSSProperties;
+    dropdownContainerStyle?: CSSProperties;
+    dropdownItemClassName?: string;
+    appearanceClass?: string;
+    dropdownTextClassName?: string;
+    dropdownLineColor?: CSSProperties["color"];
+    boldTitleWeight?: CSSProperties["fontWeight"];
+    iconColor?: CSSProperties["color"];
+    canCreate?: "object" | "string";
+    keepSelectedItemOnClear?: boolean;
+    readOnly?: boolean;
+    showClear?: boolean;
+    autoCapitalize?: string;
+}
+
+
+// DROPDOWN
+
+export type DropdownProps<SelectedItemType> = {
+    dropdownVisible: boolean;
+    dropdownContainerStyle: CSSProperties | undefined;
+    dropdownRef: RefObject<HTMLDivElement | null>;
+    resolvedTitleKey: string;
+    dropdownItemClassName: string | undefined;
+    dropdownTextClassName: string | undefined;
+    setSelectedItem: Dispatch<SetStateAction<SelectedItemType>>;
+    valueKey: string | undefined;
+    setDropdownVisible: Dispatch<SetStateAction<boolean>>;
+    emptyResultText: string | undefined;
+    boldTitleWeight: CSSProperties["fontWeight"] | undefined;
+    autoCompleteList: AutocompleteItem[];
+    dropdownLineColor: CSSProperties["color"] | undefined;
+}
 
 
 // UTILS

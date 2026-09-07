@@ -1,6 +1,6 @@
-/* Desktop : Landscape */
+/* Desktop - Large Screens */
 
-@media (min-width: 1600px) and (orientation: landscape) {
+@media (min-width: 1600px) {
     /* VW UI UNIT = (PREVIOUS UI-UNIT PX VALUE / MIN-WIDTH) * 100      =>  (1.05 / 1600) * 100    */
     /* VW FONT SIZE = (PREVIOUS REM VALUE / MIN-WIDTH) * 100      =>  (16.8 / 1600) * 100    */
 
@@ -15,7 +15,7 @@
 
 
 /* Tablets - Small Screens */
-@media (max-width: 1600px) and (min-width: 500px) and (min-height: 500px) {
+@media (max-width: 1599.98px) and (min-width: 580px) and (min-height: 580px) {
     :root {
         --ui-unit: 1.05px;
     }
@@ -26,7 +26,7 @@
 }
 
 /* Regular phones - Portait */
-@media (max-width: 500px) and (min-width: 395px) and (orientation: portrait) {
+@media (max-width: 579.98px) and (min-width: 395px) and (orientation: portrait) {
     :root {
         --ui-unit: 1px;
     }
@@ -37,7 +37,7 @@
 }
 
 /* Small phones - Portrait */
-@media (max-width: 395px) and (orientation: portrait) {
+@media (max-width: 394.98px) and (min-width: 370px) and (orientation: portrait) {
     :root {
         --ui-unit: 0.85px;
     }
@@ -47,8 +47,19 @@
     }
 }
 
+/* Very Small phones - Portrait */
+@media (max-width: 369.98px) and (orientation: portrait) {
+    :root {
+        --ui-unit: 0.8px;
+    }
+
+     html {
+        font-size: 91%;
+    }
+}
+
 /* Phones in landscape */
-@media (max-height: 500px) and (orientation: landscape) {
+@media (max-height: 579.98px) and (orientation: landscape) {
     :root {
         --ui-unit: 0.95px;
     }

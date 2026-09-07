@@ -10,7 +10,8 @@ body {
   padding: 0;
   margin: 0;
   max-width: 100%;
-  text-align: center;
+  overflow-x: hidden;
+  overscroll-behavior: none;
 
   /* Color of the background to fill empty edges spaces on safari ios. Must use the color of the tabBar and Header */
   background: var(--strong-black);
@@ -21,7 +22,9 @@ body {
 }
 
 /* Changes of default settings */
-input {
+input,
+select,
+textarea {
   outline: none;
   text-align: left;
 }

@@ -2,10 +2,13 @@
 
 import styles from "./Autocomplete.module.css";
 import { useState, useEffect, useRef, useMemo } from "react";
+import Dropdown from "./Dropdown";
+import { useDropdownPosition } from "./useDropdownPosition";
 import { IoChevronDown } from "react-icons/io5";
 import { IoMdCloseCircleOutline } from "react-icons/io";
-import { getStringValue, getKeyValue, findSelectedItemTitle } from "./autocompleUtils";
-import { AutocompleteProps, AutocompleteItem } from "./Autocomplete.types";
+import { findSelectedItemTitle } from "./autocompleUtils";
+import { getStringValue, getKeyValue } from "@/utils/unknownObjectUtils";
+import { AutocompleteProps } from "./Autocomplete.types";
 import { isArrayOfString } from "@/utils/typeGuards";
 
 // TO DISPLAY CORRECTLY THE ITEMS OF THE DATA LIST ONE OF THOSE THREE CONDITIONS MUST BE RESPECTED :
@@ -23,26 +26,33 @@ export default function Autocomplete<SelectedItemType = unknown>
     placeholderText = "",
     placeholderColor,
     emptyResultText = "Aucun résultat",
-    marginTopClass = "",
+    marginTopClassName = "",
+    inputAppearanceClassName,
     inputStyle,
-    itemClass,
-    appearanceClass,
+    inputTextClassName,
+    inputTextStyle,
     dropdownContainerStyle,
-    dropdownTextClass,
+    dropdownItemClassName,
+    dropdownTextClassName,
     dropdownLineColor,
     boldTitleWeight = "700",
     iconColor,
     canCreate, // "object" = create an object in selectedItem ; "string" = create a string
+    keepSelectedItemOnClear = true, // false => clear button will set selectedItem to null
     readOnly = false,
     showClear = true,
     autoCapitalize,
   }: AutocompleteProps<SelectedItemType>) {
 
+    
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  // Var to help set selectedItem
+  // Var to help selecting the accurate title key
   const resolvedTitleKey = titleKey ?? "title"
+
+  // Var to know if the clear button should be displayed
+  const displayClearButton = showClear && (inputValue || selectedItem) && readOnly !== true
 
 
 
@@ -54,7 +64,7 @@ export default function Autocomplete<SelectedItemType = unknown>
       const path = e.composedPath();
 
       const clickedClearButton = path.some((element) => {
-        return ( element instanceof HTMLElement && element.dataset?.autocompleteClear === "true");
+        return (element instanceof HTMLElement && element.dataset?.autocompleteClear === "true");
       });
 
       if (clickedClearButton) {
@@ -80,42 +90,97 @@ export default function Autocomplete<SelectedItemType = unknown>
 
 
 
-  // USEEFFECT TO CHANGE THE INPUTVALUE IF SELECTEDITEM HAS BEEN CHANGE ELSWHERE
+  // FUNCTION TO CHECK IF INPUTVALUE IS SYNCED WITH SELECTEDITEM
 
-  useEffect(() => {
+  const inputValueIsSynced = () => (
+    (selectedItem === null && inputValue === "")
+    ||
+    (typeof selectedItem === "string" && selectedItem === inputValue)
+    ||
+    (typeof selectedItem === "object" && getStringValue(selectedItem, resolvedTitleKey) === inputValue)
+  )
+
+
+  // FUNCTION TO SYNC INPUTVALUE TO SELECTEDITEM
+
+  const syncInputWithSelectedItem = () => {
+
+    // Return if selectedItem and inputValue are already synced (because selectedItem has changed with canCreate or an item has been selected in the dropdown)
+    if (inputValueIsSynced()) {
+      return
+    }
+
     if (!selectedItem && inputValue) {
       setInputValue("")
       return
     }
 
-    if (!selectedItem) return
-
-    // For the cases where canCreate = "string" and a registration of the input value has just been made in selectedItem
-    if (canCreate === "string" && typeof selectedItem === "string" && selectedItem === inputValue) {
+    // Search of the string value of the input/title
+    if (isArrayOfString(data) && typeof selectedItem === "string") {
+      setInputValue(selectedItem)
       return
     }
+    else if (data.every(e => typeof e !== "string")) {
+      const selectedItemTitle = findSelectedItemTitle({ data, valueKey, titleKey, selectedItem })
 
-    // For the cases where canCreate = "object" and a registration of the input value has just been made in a title key of the selectedItem object
-    if (canCreate === "object" && typeof selectedItem === "object" &&
-      getStringValue(selectedItem, resolvedTitleKey) === inputValue
-    ) {
-      return
+      if (selectedItemTitle && selectedItemTitle !== inputValue) setInputValue(selectedItemTitle)
+
     }
+  }
 
-    if (selectedItem && selectedItem !== inputValue) {
 
-      if (isArrayOfString(data) && typeof selectedItem === "string") {
-        setInputValue(selectedItem)
-        return
-      }
-      else if (data.every(e => typeof e !== "string")) {
-        const selectedItemTitle = findSelectedItemTitle({ data, valueKey, titleKey, selectedItem })
+  // USEEFFECT TO UPDATE INPUTVALUE IF SELECTEDITEM HAS BEEN CHANGE ELSWHERE
 
-        if (selectedItemTitle && selectedItemTitle !== inputValue) setInputValue(selectedItemTitle)
+  useEffect(() => {
 
-      }
-    }
+    syncInputWithSelectedItem()
+
   }, [selectedItem, data])
+
+
+
+  // FUNCTION TO VALIDATE THE INPUTVALUE IF IT MATCHES AN ITEM TITLE OR SYNCED IT TO SELECTEDITEM
+
+  const inputValidation = () => {
+
+    const inputValueLC = inputValue.toLowerCase()
+    const foundItem = data.find(e => {
+      const title = typeof e === "string" ? e : getStringValue(e, resolvedTitleKey)
+      return title && title.toLowerCase() === inputValueLC
+    })
+
+    if (foundItem) {
+      setSelectedItem((!valueKey ? foundItem : getKeyValue(foundItem, valueKey)) as SelectedItemType)
+    }
+    else syncInputWithSelectedItem()
+
+  }
+
+
+  // USEEFFECT ACTIVATED WHEN THE DROPDOWN IS CLOSED TO VALIDATE THE INPUT OR SYNCED IT
+
+  const firstRenderRef = useRef(true)
+
+  useEffect(() => {
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false
+      return
+    }
+
+    if (dropdownVisible || inputValueIsSynced()) return
+
+    inputValidation()
+
+  }, [dropdownVisible])
+
+
+
+  // USE OF USEDROPDOWNPOSITION TO PLACE THE DROPDOWN BELOW OR ABOVE THE INPUT CONTAINER DEPENDING ON THE LAYOUT
+
+  const dropdownRef = useRef<null | HTMLDivElement>(null)
+  useDropdownPosition(autoCompleteRef, dropdownRef, dropdownVisible)
+
+
 
 
 
@@ -136,88 +201,26 @@ export default function Autocomplete<SelectedItemType = unknown>
 
 
 
-  // DROPDOWN ITEM COMPONENT
-  const Item = ({ item }: { item: AutocompleteItem | null }) => {
-
-    const title = typeof item === "string" ? item : getStringValue(item, resolvedTitleKey)
-    const boldTitle = getStringValue(item, "boldTitle")
-    const lightTitle = getStringValue(item, "lightTitle")
-
-    return (
-      <button
-        type="button"
-        disabled={item ? false : true}
-        className={`${styles.item} ${itemClass ?? "largeItem"} ${dropdownTextClass ?? "regularText"}`}
-        style={{ marginTop: 0 }}
-        onClick={() => {
-          setSelectedItem((valueKey ? getKeyValue(item, valueKey) : item) as SelectedItemType)
-          setDropdownVisible(false);
-        }}
-      >
-
-        {!item && emptyResultText}
-
-        {boldTitle &&
-          <span style={{ fontWeight: boldTitleWeight }}>
-            {boldTitle}
-          </span>
-        }
-
-        {lightTitle ?? title ?? null}
-      </button>
-    );
-  };
-
-
-
-  // MAP OF THE DROPDOWN ITEM COMPONENT
-  const items =
-    // No result
-    autoCompleteList.length === 0 ?
-      <Item item={null} />
-      :
-      // Map of the filtered list
-      autoCompleteList.map((e, i) => {
-        // Last item with no border bottom
-        if (i === autoCompleteList.length - 1) {
-          return <Item item={e} key={i} />;
-        }
-        // Item with border bottom
-        else {
-          return (
-            <div key={i}>
-              <Item item={e} />
-              <div
-                className="line"
-                style={{
-                  width: "100%",
-                  ...(dropdownLineColor && { backgroundColor: dropdownLineColor })
-                }}
-              />
-            </div>
-          );
-        }
-      })
-
-
-
 
   return (
     <div
-      className={`${itemClass ?? "largeItem"} ${appearanceClass ?? "darkGreyBg"} ${marginTopClass}`}
+      className={`${inputAppearanceClassName ?? "largeItem darkGreyBg"} ${marginTopClassName}`}
       style={{
         ...{ position: "relative", display: "flex", alignItems: "center" },
         ...(inputStyle ?? {})
       }}
       ref={autoCompleteRef}
     >
-      {(showClear && (selectedItem || inputValue)) && (
+      {displayClearButton && (
         <button className={styles.closeIconContainer}
           type="button"
           data-autocomplete-clear="true"
           onClick={() => {
-            setSelectedItem(null);
             setInputValue("");
+            if (!keepSelectedItemOnClear) {
+              setSelectedItem(null as SelectedItemType);
+            }
+            setDropdownVisible(true)
           }}
         >
           <IoMdCloseCircleOutline
@@ -244,15 +247,17 @@ export default function Autocomplete<SelectedItemType = unknown>
 
       <input
         value={inputValue}
-        className="inputWithIcon regularText"
+        className={`inputWithIcon ${inputTextClassName ?? "regularText"}`}
         placeholder={placeholderText}
         readOnly={readOnly}
         style={{
           width: "80%",
           maxWidth: "80%",
-          ...(placeholderColor && { "--placeholder-color": placeholderColor })
+          ...(placeholderColor && { "--placeholder-color": placeholderColor }),
+          cursor: readOnly ? "pointer" : undefined,
+          ...(inputTextStyle && inputTextStyle),
         }}
-        onClick={() => setDropdownVisible(true)}
+        onClick={() => setDropdownVisible(prev => !readOnly ? true : !prev)}
         type="text"
         autoCapitalize={autoCapitalize ?? "sentences"}
         onChange={(e) => {
@@ -265,29 +270,29 @@ export default function Autocomplete<SelectedItemType = unknown>
           }
         }}
         onKeyDown={(event) => {
-          if (event.code === "Enter" || event.keyCode === 13) {
-
-            const inputValueLC = event.currentTarget.value.toLowerCase()
-            const foundItem = data.find(e => {
-              const title = typeof e === "string" ? e : getStringValue(e, resolvedTitleKey)
-              return title && title.toLowerCase() === inputValueLC
-            })
-
-            if (foundItem) {
-              setSelectedItem((!valueKey ? foundItem : getKeyValue(foundItem, valueKey)) as SelectedItemType)
-            }
-            setDropdownVisible(false)
+          if (event.key === "Enter" || event.key === "Escape" || event.keyCode === 13) {
+            if (event.key === "Escape") syncInputWithSelectedItem()
+            setDropdownVisible(false) // A useEffect will validate or not the input value
           }
         }}
       />
 
-      <div
-        className={`${styles.dropdown} ${dropdownVisible ? styles.visibleDropdown : styles.hiddenDropdown
-          }`}
-        style={dropdownContainerStyle}
-      >
-        {items}
-      </div>
+      <Dropdown<SelectedItemType>
+        dropdownVisible={dropdownVisible}
+        dropdownContainerStyle={dropdownContainerStyle}
+        dropdownRef={dropdownRef}
+        resolvedTitleKey={resolvedTitleKey}
+        dropdownItemClassName={dropdownItemClassName}
+        dropdownTextClassName={dropdownTextClassName}
+        setSelectedItem={setSelectedItem}
+        valueKey={valueKey}
+        setDropdownVisible={setDropdownVisible}
+        emptyResultText={emptyResultText}
+        boldTitleWeight={boldTitleWeight}
+        autoCompleteList={autoCompleteList}
+        dropdownLineColor={dropdownLineColor}
+      />
+
     </div>
   );
 }

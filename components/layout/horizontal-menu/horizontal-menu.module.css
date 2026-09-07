@@ -16,7 +16,7 @@
     column-gap: calc(15 * var(--ui-unit));
     padding: 0 calc(10 * var(--ui-unit));
     scrollbar-width: none;
-    z-index: 8;
+    z-index: 15;
 }
 
 /* No display in portrait */

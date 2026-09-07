@@ -22,7 +22,7 @@ export default function Home() {
         Hello !!!
       </h2>
 
-      <button type="button" className='regularItem strongRedBg regularText mt-large' onClick={() => setModalVisible(true)}>
+      <button type="button" className='smallItem strongRedBg regularText mt-large' onClick={() => setModalVisible(true)}>
         Confirmation
       </button>
 
@@ -47,7 +47,7 @@ export default function Home() {
 
 
 
-      <div className='largeCard'>
+      <div className='mediumCard'>
         <h3 className='pageSubtitle'>
           Modifier mes informations
         </h3>
@@ -61,20 +61,19 @@ export default function Home() {
           placeholderText={"Choisissez la couleur"}
           titleKey={"frenchTitle"}
           valueKey={"englishTitle"}
-          itemClass={"largeCardItem"}
-          appearanceClass={"strongGreyBorder"}
+          inputAppearanceClassName={"strongGreyBorder mediumCardItem"}
           iconColor={"var(--placeholder-color)"}
         />
 
         <p className='largeText mt-medium'>Titre input - large text </p>
 
-        <input className='largeCardItem regularText strongGreyBorder' />
+        <input className='mediumCardItem regularText strongGreyBorder' />
 
         <p className='regularText mt-medium'>Titre input - regular text </p>
 
-        <input className='largeCardItem regularText strongGreyBorder' />
+        <input className='mediumCardItem regularText strongGreyBorder' />
 
-        <button className='largeCardItem strongRedBg regularText' onClick={() => setModalVisible(true)}>
+        <button className='mediumCardItem strongRedBg regularText' onClick={() => setModalVisible(true)}>
           Confirmation
         </button>
 

@@ -1,0 +1,84 @@
+.overlayWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-width: 100vw;
+    min-height: 100dvh;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.clickable {
+    pointer-events: auto;
+}
+
+.noneClickable {
+    pointer-events: none;
+}
+
+
+.overlayContainer {
+    background-color: var(--page-bg-color);
+    padding-top: calc(var(--headers-height) + var(--horiz-menu-height));
+    padding-bottom: var(--page-padding-bottom);
+    min-height: 100dvh;
+    width: 100vw;
+    max-width: 100vw;
+}
+
+
+.hidden {
+    transform: translateX(100vw);
+}
+
+.visibleTransition {
+    transition: transform 0.3s ease-out,
+
+        /* stabilizes the capture of the initial state of the transform */
+        width 0s;
+}
+
+.hiddenTransition {
+    transition: transform 0.3s ease-out,
+
+        /* stabilizes the capture of the initial state of the transform */
+        width 0s 0.3s;
+}
+
+.backHeaderContainer {
+    min-height: var(--horiz-menu-height);
+    max-height: 20dvh;
+    background-color: var(--bright-blue);
+    display: flex;
+    padding-left: calc(10 * var(--ui-unit));
+    width: 100%;
+    position: fixed;
+    top: var(--headers-height);
+}
+
+.backHeaderButton {
+    min-height: var(--horiz-menu-height);
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    column-gap: calc(20 * var(--ui-unit));
+}
+
+.arrow {
+    font-size: calc(20 * var(--ui-unit));
+}
+
+.backHeaderText {
+    color: var(--bright-white)
+}
+
+
+/* Portrait Override */
+
+@media (orientation: portrait) {
+    .backHeaderContainer {
+        background-color: var(--light-blue);
+    }
+}

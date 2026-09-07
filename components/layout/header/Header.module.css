@@ -3,13 +3,14 @@
     overflow: hidden;
     background-color: var(--strong-black);
     width: 100vw;
+    max-width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
     position: fixed;
     top: 0;
-    z-index: 9;
+    z-index: 15;
 }
 
 @media (orientation: landscape) {
@@ -29,14 +30,14 @@
         overflow: hidden;
         display: flex;
         align-items: center;
-        padding : calc(4 * var(--ui-unit)) 0px;
+        padding: calc(4 * var(--ui-unit)) 0px;
     }
 }
 
 .headerTitle {
     color: var(--light-white);
     margin: 0;
-    font-size: calc(36 * var(--ui-unit));
+    font-size: calc(30 * var(--ui-unit));
     letter-spacing: calc(2 * var(--ui-unit));
     font-weight: 600;
     text-align: center;

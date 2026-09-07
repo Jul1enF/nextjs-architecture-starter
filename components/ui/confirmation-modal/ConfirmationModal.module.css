@@ -29,41 +29,39 @@
     justify-content: center;
 }
 
+.modal {
+    position: absolute;
+    padding-top: calc(35 * var(--ui-unit));
+    padding-bottom: calc(35 * var(--ui-unit));
+}
+
 .visibleModal {
-        position: absolute;
-        padding-top: calc(35 * var(--ui-unit));
-        padding-bottom: calc(35 * var(--ui-unit));
-        bottom: 20lvh;
-        width: var(--regular-card-width);
-        visibility: visible;
-        transition: bottom 0.35s ease-in-out;
-        z-index: 12;
-    }
+    bottom: 20lvh;
+    visibility: visible;
+    transition: bottom 0.35s ease-in-out;
+    z-index: 12;
+}
 
 
-    .hiddenModal {
-        position: absolute;
-        visibility: hidden;
-        padding-top: calc(35 * var(--ui-unit));
-        padding-bottom: calc(35 * var(--ui-unit));
-        bottom: -50lvh;
-        width: var(--regular-card-width);
-        transition: bottom 0.3s,
-            visibility 0s 0.3s;
-        z-index: 12;
-        overflow: hidden;
-    }
+.hiddenModal {
+    visibility: hidden;
+    bottom: -50lvh;
+    transition: bottom 0.3s,
+        visibility 0s 0.3s;
+    z-index: 12;
+    overflow: hidden;
+}
 
-    .confirmationText {
-        font-weight: 500;
-        color: var(--dark-white);
-        text-align: center;
-        margin: 0;
-        font-size: calc(20 * var(--ui-unit));
-    }
+.confirmationText {
+    font-weight: 500;
+    color: var(--dark-white);
+    text-align: center;
+    margin: 0;
+    font-size: calc(20 * var(--ui-unit));
+}
 
 
-    .thisLine {
-        width: calc(var(--regular-item-width) * 0.4);
-        margin: calc(20 * var(--ui-unit)) 0;
-    }
+.thisLine {
+    width: calc(var(--regular-item-width) * 0.4);
+    margin: calc(20 * var(--ui-unit)) 0;
+}

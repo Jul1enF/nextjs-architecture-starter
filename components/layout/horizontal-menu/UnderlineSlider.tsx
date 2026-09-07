@@ -51,6 +51,7 @@ export default function UnderlineSlider() {
 
         positionUnderline()
 
+        // Resize observer in case the window is resized (also for potential appearance of items or late font loading)
         const observer = new ResizeObserver(positionUnderline)
         observer.observe(underlineParent)
         return () => observer.disconnect()
