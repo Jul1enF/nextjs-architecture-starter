@@ -8,6 +8,7 @@
     background-color: var(--background-color);
     position: sticky;
     top: var(--headers-height);
+    z-index: 10;
     min-height: var(--horiz-menu-height);
     max-height: 20dvh;
     --background-color: var(--bright-blue);
@@ -55,6 +56,7 @@
 
 /* Portrait Override */
 @media (orientation: portrait) {
+
     /* Change of the background color because there is no horizontal menu on phones */
     .mainContainer {
         --background-color: var(--light-blue);
@@ -62,8 +64,8 @@
 }
 
 
-/* Tablets and mobiles override */
-@media not ((hover: hover) and (pointer: fine)) {
+/* Touchscreens override */
+@media (any-pointer: coarse) {
     .mainContainer {
         padding: 0 calc(10 * var(--ui-unit));
     }
@@ -74,8 +76,8 @@
 }
 
 
-/* Desktop Override */
-@media (hover: hover) and (pointer: fine) {
+/* None touchscreens Override */
+@media not (any-pointer: coarse) {
     .fadeIn {
         -webkit-mask-image: linear-gradient(to right,
                 rgba(0, 0, 0, 0.15) 0,
@@ -164,7 +166,7 @@
     opacity: 0;
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media not (any-pointer: coarse) {
     .highLighted:hover>span {
         opacity: 0.65;
     }

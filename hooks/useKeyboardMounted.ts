@@ -14,6 +14,7 @@ const KEYBOARD_INPUT_TYPES = new Set([
 export function useKeyboardMounted(): boolean {
     const [keyboardMounted, setKeyboardMounted] = useState(false)
 
+
     useEffect(() => {
         // Returns true only for elements that trigger the software keyboard
         const opensKeyboard = (el: EventTarget | null): boolean => {
@@ -38,10 +39,31 @@ export function useKeyboardMounted(): boolean {
             return false
         }
 
-        // --- Main source of truth: focus events ---
+        const vv = window.visualViewport
+
+
+
+        // FOCUS LISTENER + VISUAL VIEWPORT RESIZE LISTENER
+        // Because :
+        // - visualViewport can have the wrong value when keyboard dimount after being summoned by a bottom page input that added a large offsetTop to vv
+        // - focus out can not be called on safari iOS when tapping beside the URL (or helper) bubble
+
+
+
+        // FOCUS EVENTS LISTENERS
         const handleFocusIn = (e: FocusEvent) => {
+            if (!vv) return
+
+            const fullHeight = document.documentElement.clientHeight // Better than window.innerHeight on safari iOS that changes with url bar different displays
+
             if (opensKeyboard(e.target)) {
-                setKeyboardMounted(true)
+                // Wait to check if the viewport size has changed after complete keyboard mount
+                setTimeout(()=>{
+                    const reducedViewport = vv.height < fullHeight * 0.7
+                        if (reducedViewport) {
+                            setKeyboardMounted(true)
+                        }
+                },500)
             }
         }
 
@@ -50,9 +72,11 @@ export function useKeyboardMounted(): boolean {
                 // Wait a frame to check if another field takes focus
                 // (switching between inputs shouldn't close the keyboard)
                 requestAnimationFrame(() => {
-                    if (!opensKeyboard(document.activeElement)) {
-                        setKeyboardMounted(false)
-                    }
+                    requestAnimationFrame(() => {
+                        if (!opensKeyboard(document.activeElement)) {
+                            setKeyboardMounted(false)
+                        }
+                    })
                 })
             }
         }
@@ -60,8 +84,10 @@ export function useKeyboardMounted(): boolean {
         document.addEventListener("focusin", handleFocusIn)
         document.addEventListener("focusout", handleFocusOut)
 
-        // --- Safety net: visualViewport ---
-        const vv = window.visualViewport
+
+
+
+        // VISUELVIEWPORT RESIZE EVENTS LISTENER
         const handleViewportChange = () => {
             if (!vv) return
 

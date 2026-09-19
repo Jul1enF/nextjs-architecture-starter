@@ -3,7 +3,7 @@
 import styles from "./Autocomplete.module.css";
 import { useState, useEffect, useRef, useMemo } from "react";
 import Dropdown from "./Dropdown";
-import { useDropdownPosition } from "./useDropdownPosition";
+import { useFloatingPosition } from "@/hooks/useFloatingPosition";
 import { IoChevronDown } from "react-icons/io5";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { findSelectedItemTitle } from "./autocompleUtils";
@@ -26,9 +26,9 @@ export default function Autocomplete<SelectedItemType = unknown>
     placeholderText = "",
     placeholderColor,
     emptyResultText = "Aucun résultat",
-    marginTopClassName = "",
-    inputAppearanceClassName,
-    inputStyle,
+    marginTopClassName = "", // will not be applied if inputContainerClassName is provided
+    inputContainerClassName,
+    inputContainerStyle,
     inputTextClassName,
     inputTextStyle,
     dropdownContainerStyle,
@@ -178,7 +178,11 @@ export default function Autocomplete<SelectedItemType = unknown>
   // USE OF USEDROPDOWNPOSITION TO PLACE THE DROPDOWN BELOW OR ABOVE THE INPUT CONTAINER DEPENDING ON THE LAYOUT
 
   const dropdownRef = useRef<null | HTMLDivElement>(null)
-  useDropdownPosition(autoCompleteRef, dropdownRef, dropdownVisible)
+  useFloatingPosition({
+    anchorRef: autoCompleteRef, 
+    floatingRef: dropdownRef, 
+    floatingVisible : dropdownVisible,
+  })
 
 
 
@@ -204,10 +208,13 @@ export default function Autocomplete<SelectedItemType = unknown>
 
   return (
     <div
-      className={`${inputAppearanceClassName ?? "largeItem darkGreyBg"} ${marginTopClassName}`}
+      className={`
+        ${inputContainerClassName ?? "largeCardItem brightGreyBorder"} 
+        ${inputContainerClassName ? "" : marginTopClassName}
+        `}
       style={{
         ...{ position: "relative", display: "flex", alignItems: "center" },
-        ...(inputStyle ?? {})
+        ...(inputContainerStyle ?? {})
       }}
       ref={autoCompleteRef}
     >

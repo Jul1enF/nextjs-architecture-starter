@@ -24,8 +24,8 @@ export type AutocompleteProps<SelectedItemType = unknown> = {
     placeholderColor?: CSSProperties["color"];
     emptyResultText?: string;
     marginTopClassName?: string;
-    inputAppearanceClassName?: string;
-    inputStyle?: CSSProperties;
+    inputContainerClassName?: string;
+    inputContainerStyle?: CSSProperties;
     inputTextClassName?: string;
     inputTextStyle?: CSSProperties;
     dropdownContainerStyle?: CSSProperties;

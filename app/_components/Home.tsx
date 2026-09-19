@@ -61,7 +61,7 @@ export default function Home() {
           placeholderText={"Choisissez la couleur"}
           titleKey={"frenchTitle"}
           valueKey={"englishTitle"}
-          inputAppearanceClassName={"strongGreyBorder mediumCardItem"}
+          inputContainerClassName={"strongGreyBorder mediumCardItem"}
           iconColor={"var(--placeholder-color)"}
         />
 

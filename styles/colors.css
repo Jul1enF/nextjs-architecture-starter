@@ -31,6 +31,15 @@ input::placeholder {
     --light-green: rgba(0, 173, 0, 1);
     --strong-green: rgba(0, 140, 0, 1);
 
+    
+    --bright-blue: rgb(119, 180, 250);
+    --light-blue: rgb(79, 157, 247);
+    --medium-blue: rgb(31, 108, 196);
+    --strong-blue: rgb(19, 84, 158);
+    --dark-blue: rgb(8, 60, 119);
+
+
+    
 
     --blue-link: rgb(1, 1, 224);
 }

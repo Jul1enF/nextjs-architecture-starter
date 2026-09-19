@@ -7,7 +7,7 @@ import { createPortal } from "react-dom";
 import { useLockScrollableContainers } from "./hooks/useLockScrollableContainers";
 import { useNavigationSync } from "./hooks/useNavigationSync";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
-import { useLockTransitions } from "@/hooks/ux/useLockTransitions";
+import { useLockTransitions } from "@/hooks/useLockTransitions";
 import { FaArrowLeft } from "react-icons/fa6";
 import { OverlayPageWrapperProps } from "./OverlayPageWrapper.types";
 
@@ -35,6 +35,12 @@ export default function OverlayPageWrapper({
 
 
 }: OverlayPageWrapperProps) {
+
+    // We manage the scroll restoration ourselves
+    useIsomorphicLayoutEffect(()=>{
+        window.history.scrollRestoration = "manual"
+    },[])
+
 
     // Because the onClose function can supress data that are displayed inside the overlay, we use another state to trigger the visibility (so in case of transition = true we suppress the displayed data after the overlay has completely disappear)
     const [overlayVisible, setOverlayVisible] = useState(visible)
@@ -196,7 +202,6 @@ export default function OverlayPageWrapper({
 
 
 
-
     // CHANGES OF STYLE THAT MUST HAPPEN AFTER TRANSITION
     const onTransitionEnd = (e: React.TransitionEvent) => {
         if (e.propertyName !== 'transform' || e.target !== e.currentTarget) return
@@ -269,6 +274,7 @@ export default function OverlayPageWrapper({
                         <div
                             className={`${backHeaderClassName ?? styles.backHeaderContainer}`}
                             style={backHeaderStyle ?? {}}
+                            data-overlay-back-header="true"
                         >
 
                             <button

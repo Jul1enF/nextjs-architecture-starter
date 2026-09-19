@@ -19,8 +19,8 @@
      background-color: var(--medium-grey);
      position: fixed;
      overflow-y: scroll;
-     z-index: 1;
-     min-height: var(--free-height);
+     z-index: 15;
+     height: var(--free-height);
      top: var(--headers-height);
  }
 

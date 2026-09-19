@@ -4,7 +4,7 @@
 import styles from "./CategoriesMenu.module.css"
 import { useEffect, useState, useCallback, useRef, useMemo } from "react"
 import { CategoriesMenuProps } from "./CategoriesMenu.types"
-import { useScrollToSection } from "@/hooks/ux/useScrollToSection"
+import { useScrollToSection } from "@/hooks/useScrollToSection"
 import Category from "./Category"
 import HighLightContainer from "./HighLightContainer"
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";

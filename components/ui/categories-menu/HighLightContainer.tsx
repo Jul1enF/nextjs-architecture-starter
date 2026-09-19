@@ -3,7 +3,7 @@
 import styles from "./CategoriesMenu.module.css"
 import { useRef } from "react"
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect"
-import { useLockTransitions } from "@/hooks/ux/useLockTransitions"
+import { useLockTransitions } from "@/hooks/useLockTransitions"
 import { HighLightContainerProps } from "./CategoriesMenu.types"
 
 

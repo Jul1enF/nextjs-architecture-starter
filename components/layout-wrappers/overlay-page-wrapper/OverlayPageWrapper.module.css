@@ -54,6 +54,7 @@
     padding-left: calc(10 * var(--ui-unit));
     width: 100%;
     position: fixed;
+    z-index: 10;
     top: var(--headers-height);
 }
 
