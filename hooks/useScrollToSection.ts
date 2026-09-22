@@ -1,68 +1,74 @@
 import { useEffect } from "react";
+import { useLayoutDimensions } from "./useLayoutDimensions";
 import { isWindow } from "@/utils/typeGuards";
 
 type Container = HTMLElement | null
 type ScrollingParent = Container | (Window & typeof globalThis)
 
-const getParentsStatus = (element: HTMLElement, horizontal: boolean) => {
-    let parent: Container = element.parentElement
-    let containerToScroll: ScrollingParent = null
-    let fixedElementsHeight = 0
 
-    while (parent && !containerToScroll) {
-        const style = window.getComputedStyle(parent);
+export const useScrollToSection = (selectedSectionName: string | undefined, horizontalScroll: boolean, sectionsRef: React.RefObject<{ [key: string]: HTMLElement | null }>) => {
 
-        if (!containerToScroll) {
-            const overflowAxis = horizontal ? style.overflowX : style.overflowY;
-            const scrollAxis = horizontal ? "scrollWidth" : "scrollHeight"
-            const clientAxis = horizontal ? "clientWidth" : "clientHeight"
-            const overflow = style.overflow;
+    const { headersHeight } = useLayoutDimensions()
 
-            const isScrollable =
-                ["auto", "scroll", "overlay"].includes(overflowAxis) ||
-                ["auto", "scroll", "overlay"].includes(overflow);
 
-            if (isScrollable && parent[scrollAxis] > parent[clientAxis]) {
-                containerToScroll = parent;
+    // FUNCTION TO GET THE SCROLLING PARENT AND THE POTENTIAL FIXED ELEMENTS HEIGHT
+    const getParentsStatus = (element: HTMLElement, horizontalScroll: boolean) => {
+        let parent: Container = element.parentElement
+        let containerToScroll: ScrollingParent = null
+        let fixedHeadersHeight = 0
+
+        while (parent && !containerToScroll) {
+            const style = window.getComputedStyle(parent);
+
+            if (!containerToScroll) {
+                const overflowAxis = horizontalScroll ? style.overflowX : style.overflowY;
+                const scrollAxis = horizontalScroll ? "scrollWidth" : "scrollHeight"
+                const clientAxis = horizontalScroll ? "clientWidth" : "clientHeight"
+                const overflow = style.overflow;
+
+                const isScrollable =
+                    ["auto", "scroll", "overlay"].includes(overflowAxis) ||
+                    ["auto", "scroll", "overlay"].includes(overflow);
+
+                if (isScrollable && parent[scrollAxis] > parent[clientAxis]) {
+                    containerToScroll = parent;
+                }
             }
+
+            parent = parent.parentElement;
         }
 
-        parent = parent.parentElement;
+        if (!horizontalScroll && !containerToScroll) containerToScroll = window
+        // If the section container is horizontalScroll, we need a scroll parent to not go over the edges so we let it null
+
+
+        // Only take the height of the fixed headers if we are scrolling vertically inside window (at the root, where they are) and not inside a component
+        if (containerToScroll === window && !horizontalScroll) {
+            fixedHeadersHeight = headersHeight ?? 0
+        }
+
+        return {
+            containerToScroll,
+            fixedHeadersHeight,
+        }
     }
 
-    if (!horizontal && !containerToScroll) containerToScroll = window
-    // If the section container is horizontal, we need a scroll parent to not go over the edges so we let it null
-
-    // Add potentials heights of fixed header
-    const fixedHeaders = document.querySelectorAll('[data-fixed-header="true"]');
-
-    // Only take the height of the fixed headers if we are scrolling inside window (at the root, where they are) and not inside a component
-    if (fixedHeaders?.length && containerToScroll === window) {
-        fixedHeaders.forEach(e => fixedElementsHeight += e.clientHeight)
-    }
-
-    return {
-        containerToScroll,
-        fixedElementsHeight,
-    }
-}
 
 
-export const useScrollToSection = (selectedSectionName: string | undefined, horizontal: boolean, sectionsRef: React.RefObject<{ [key: string]: HTMLElement | null }>) => {
-
+    // USEEFFECT TO MAKE A SCROLL TO A SELECTED SECTION
     useEffect(() => {
         if (!sectionsRef.current || !selectedSectionName || !sectionsRef.current[selectedSectionName]) return
 
         const targetedSection = sectionsRef.current[selectedSectionName]
 
-        const { containerToScroll, fixedElementsHeight } = getParentsStatus(targetedSection, horizontal)
+        const { containerToScroll, fixedHeadersHeight } = getParentsStatus(targetedSection, horizontalScroll)
 
         if (!containerToScroll) return
 
         const padding = 15
 
-        const scrollDirection = horizontal ? "left" : "top"
-        const scrollOffset = horizontal ? "scrollLeft" : "scrollTop"
+        const scrollDirection = horizontalScroll ? "left" : "top"
+        const scrollOffset = horizontalScroll ? "scrollLeft" : "scrollTop"
 
         let containerViewportOffset: number
         let containerCurrentScroll: number
@@ -80,7 +86,7 @@ export const useScrollToSection = (selectedSectionName: string | undefined, hori
 
         const sectionViewportOffset = targetedSection.getBoundingClientRect()[scrollDirection]
 
-        const distanceToScroll = sectionViewportOffset - containerViewportOffset + containerCurrentScroll - padding - fixedElementsHeight;
+        const distanceToScroll = sectionViewportOffset - containerViewportOffset + containerCurrentScroll - padding - (!horizontalScroll ? fixedHeadersHeight : 0);
 
         // Scroll inside window
         if (isWindow(containerToScroll)) {
